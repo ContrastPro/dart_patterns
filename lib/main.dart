@@ -26,6 +26,13 @@ void _runApp() {
         );
         allMethods.dartSingleton();
         break;
+      case 3:
+        allMethods = AllMethods(
+          patternClass: 'Generative patterns',
+          patternName: 'Dart Prototype',
+        );
+        allMethods.dartPrototype();
+        break;
     }
   } while (index != 0);
 }

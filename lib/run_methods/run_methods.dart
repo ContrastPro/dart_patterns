@@ -1,4 +1,5 @@
-import '../classes/singleton.dart';
+import '../patterns/prototype/prototype.dart';
+import '../patterns/singleton/singleton.dart';
 
 class AllMethods {
   final String patternClass;
@@ -6,16 +7,16 @@ class AllMethods {
 
   AllMethods({this.patternClass, this.patternName});
 
+  /**
+   * Print information about chosen pattern
+   */
   void _printPatternInfo() => print('# $patternClass -> $patternName #');
 
+  /**
+   * ## [CustomSingleton]
+   */
   void customSingleton() {
     _printPatternInfo();
-    /**
-     * (5) In the client code, replace calls to the singleton constructor with calls
-     * to its constructor method.
-     *
-     * * No other code will replace the instantiated class
-     */
     final singleton1 =
         CustomSingleton.getInstance('First created Object of $patternName');
     final singleton2 =
@@ -25,6 +26,9 @@ class AllMethods {
     print("Object is identical: ${identical(singleton1, singleton2)}");
   }
 
+  /**
+   * ## [DartSingleton]
+   */
   void dartSingleton() {
     _printPatternInfo();
     final singleton1 = DartSingleton('First created Object of $patternName');
@@ -32,5 +36,31 @@ class AllMethods {
     print(singleton1.dartSingletonValue);
     print(singleton2.dartSingletonValue);
     print("Object is identical: ${identical(singleton1, singleton2)}");
+  }
+
+  /**
+   * ## [Prototype]
+   */
+  void dartPrototype() {
+    _printPatternInfo();
+    final originalCircle = Circle(radius: 11, color: "Black");
+    final cloneCircle = originalCircle.clone();
+    final someOtherCircle = Circle(radius: 55, color: "White");
+
+    print(
+      "Original circle is: ${originalCircle.cloneStatus},"
+      "\nColor: ${originalCircle.color}"
+      "\nRadius: ${originalCircle.radius}\n",
+    );
+    print(
+      "Clone circle is: ${cloneCircle.cloneStatus},"
+      "\nColor: ${cloneCircle.color}"
+      "\nRadius: ${cloneCircle.radius}\n",
+    );
+    print(
+      "Some other circle is: ${someOtherCircle.cloneStatus},"
+      "\nColor: ${someOtherCircle.color}"
+      "\nRadius: ${someOtherCircle.radius}\n",
+    );
   }
 }
