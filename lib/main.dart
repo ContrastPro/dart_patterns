@@ -1,38 +1,65 @@
 import 'dart:io';
 import 'run_methods/run_methods.dart';
 
-void main() => _runApp();
+void main() => runApp();
 
-void _runApp() {
-  AllMethods allMethods = AllMethods();
-
+void runApp() {
   int index;
   do {
-    print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
+    print('\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n');
     print("Enter number:");
     index = int.parse(stdin.readLineSync());
     switch (index) {
+      /**
+     * ## Creational patterns
+     */
       case 1:
-        allMethods = AllMethods(
-          patternClass: 'Generative patterns',
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
           patternName: 'Custom Singleton',
         );
-        allMethods.customSingleton();
+        Pattern.customSingleton();
         break;
       case 2:
-        allMethods = AllMethods(
-          patternClass: 'Generative patterns',
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
           patternName: 'Dart Singleton',
         );
-        allMethods.dartSingleton();
+        Pattern.dartSingleton();
         break;
       case 3:
-        allMethods = AllMethods(
-          patternClass: 'Generative patterns',
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
           patternName: 'Dart Prototype',
         );
-        allMethods.dartPrototype();
+        Pattern.dartPrototype();
         break;
+      case 4:
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
+          patternName: 'Dart Factory Method',
+        );
+        Pattern.dartFactoryMethod();
+        break;
+      case 5:
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
+          patternName: 'Dart Builder',
+        );
+        Pattern.dartBuilder();
+        break;
+
+
+
+
+      default:
+        print(index != 0 ? 'Not Exist' : 'Exit');
     }
   } while (index != 0);
 }
+
+/**
+ * Print information about chosen pattern
+ */
+void _printPatternInfo({String patternClass, String patternName}) =>
+    print('# $patternClass -> $patternName #');

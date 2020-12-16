@@ -40,7 +40,7 @@
  */
 class CustomSingleton {
   /**
-   * (1) Add a private static field to the class that will contain a single object.
+   *   (1) Add a private static field to the class that will contain a single object.
    *
    * * The static keyword is used for a class-level variable and method that is
    *   the same for every instance of a class, this means if a data member is static,
@@ -50,11 +50,11 @@ class CustomSingleton {
   String customSingletonValue;
 
   /**
-   * (2) Declare a static constructor method to be used to get the singleton.
+   *  (2) Declare a static constructor method to be used to get the singleton.
    */
   static CustomSingleton getInstance(String value) {
     /**
-     * (3) Add "lazy initialization" (object creation the first time the method is
+     *  (3) Add "lazy initialization" (object creation the first time the method is
      * called) to the creating singleton method.
      */
     if (_customSingleton == null) {
@@ -64,7 +64,7 @@ class CustomSingleton {
   }
 
   /**
-   * (4) Make the constructor of the class private.
+   *   (4) Make the constructor of the class private.
    *
    * * Class constructor [Singleton._()] will be accessible only from its class.
    *   However, you can call the private constructor in the same file.
@@ -74,8 +74,8 @@ class CustomSingleton {
     this.customSingletonValue = value;
   }
 /**
- * (5) In the client code, replace calls to the singleton constructor with calls
- * to its constructor method.
+ *   (5) In the client code, replace calls to the singleton constructor with calls
+ *   to its constructor method.
  *
  * * No other code will replace the instantiated class
  */
