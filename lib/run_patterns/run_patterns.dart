@@ -1,5 +1,6 @@
 import '../patterns/abstract_factory/abstract_factory.dart';
 import '../patterns/adapter/adapter.dart';
+import '../patterns/bridge/bridge.dart';
 import '../patterns/builder/builder.dart';
 import '../patterns/factory_method/factory_method.dart';
 import '../patterns/prototype/prototype.dart';
@@ -120,5 +121,19 @@ class Pattern {
     for (int i = 0; i < posts.length; i++) {
       print("Title: ${posts[i].title}\nContent: ${posts[i].content}\n");
     }
+  }
+
+  /**
+   * ## [Bridge]
+   */
+  static void dartBridge() {
+    final flutterWindows = FlutterEngine(flutterSDK: FlutterWindows());
+    flutterWindows.runApp();
+
+    final flutterIOS = FlutterEngine(flutterSDK: FlutterIOS());
+    flutterIOS.runApp();
+
+    final flutterWEB = FlutterEngine(flutterSDK: FlutterWEB());
+    flutterWEB.runApp();
   }
 }

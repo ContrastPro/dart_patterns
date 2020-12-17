@@ -44,7 +44,7 @@ class FactoryMethod {
 
   /**
    * (2) In the class that produces products, create an empty factory method.
-   * Specify the generic product interface as the return type.
+   *     Specify the generic product interface as the return type.
    */
   @override
   String toString();
@@ -55,15 +55,15 @@ class WindowsButton extends Button {
 
   /**
    * (3) Then go through the class code and find all the areas that create products.
-   * Alternately replace these sections with calls to the factory method, transferring
-   * the code for creating various products into it.
+   *     Alternately replace these sections with calls to the factory method, transferring
+   *     the code for creating various products into it.
    */
   WindowsButton({double width, double height, String color})
       : factoryMethod = FactoryMethod(width, height, color);
 
   /**
    * (4) For each product type, create a subclass and override the factory method in it.
-   * Move the code to create the corresponding product from the superclass there.
+   *     Move the code to create the corresponding product from the superclass there.
    */
   @override
   String toString() =>

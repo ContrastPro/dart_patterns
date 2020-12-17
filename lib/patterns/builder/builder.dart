@@ -36,10 +36,10 @@
  * ## Implementation steps:
  *
  * (1) Make sure that creating different representations of an object can be reduced to
- * general steps.
+ *     general steps.
  *
  * (2) The [Builder] interface declares all the possible stages and steps of the product
- * configuration.
+ *     configuration.
  */
 abstract class Builder {
   void setCarType(CarType carType);
@@ -51,9 +51,8 @@ abstract class Builder {
 
 /**
  * (3) Concrete builders implement the steps declared in the interface.
- *
- * For each of the product object representations, create one builder class and
- * implement their building methods.
+ *     For each of the product object representations, create one builder class and
+ *     implement their building methods.
  */
 class CarBuilder implements Builder {
   CarType _carType;
@@ -74,11 +73,11 @@ class CarBuilder implements Builder {
 
 /**
  * (4) Unlike other building patterns, Builders can create completely different products
- * with no common interface.
+ *     with no common interface.
  *
- * In this case, we produce the car's user manual [ManualBuilder] using the same steps
- * as the cars [CarBuilder] themselves. This device will allow you to create manuals for
- * specific car models, containing certain components.
+ *     In this case, we produce the car's user manual [ManualBuilder] using the same steps
+ *     as the cars [CarBuilder] themselves. This device will allow you to create manuals for
+ *     specific car models, containing certain components.
  */
 class ManualBuilder implements Builder {
   CarType _carType;
@@ -182,7 +181,7 @@ class Director {
 }
 /**
  * (5) The client code will need to create both the builder objects and the director object.
- * Before starting construction, the client must link a specific builder with a director.
- * This can be done either through the constructor, or through the setter, or by feeding the
- * builder directly into the director's construction method.
+ *     Before starting construction, the client must link a specific builder with a director.
+ *     This can be done either through the constructor, or through the setter, or by feeding the
+ *     builder directly into the director's construction method.
  */

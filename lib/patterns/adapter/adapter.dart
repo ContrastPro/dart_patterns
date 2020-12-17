@@ -32,7 +32,7 @@ import 'dart:convert';
  * (1) Make sure you have two classes with incompatible interfaces
  *
  * (1.1) A useful service is a utility class that you cannot modify
- * (it is either third-party or other code depends on it);
+ *       (it is either third-party or other code depends on it);
  */
 class MediumAPI {
   String getMediumPosts() {
@@ -46,7 +46,7 @@ class MediumAPI {
 
 /**
  * (1.2) One or more clients - existing application classes that are incompatible
- * with the service due to an inconvenient or mismatched interface.
+ *       with the service due to an inconvenient or mismatched interface.
  */
 class HabrAPI {
   String getHabrPosts() {
@@ -67,7 +67,7 @@ class Post {
 
 /**
  * (2) Describe a client interface through which application classes can use the
- * service class.
+ *     service class.
  */
 abstract class IPostsAPI {
   List<Post> getPosts();
@@ -79,15 +79,15 @@ abstract class IPostsAPI {
 class MediumAdapter implements IPostsAPI {
   /**
    * (4) Place a field in the adapter that will hold the link to the service object.
-   * Typically, this field is populated with an object passed to the adapter constructor.
-   * For simple adaptation, this object can be passed through the parameters of the adapter
-   * methods.
+   *     Typically, this field is populated with an object passed to the adapter constructor.
+   *     For simple adaptation, this object can be passed through the parameters of the adapter
+   *     methods.
    */
   final api = MediumAPI();
 
   /**
    * (5) Implement all client interface methods in the adapter. The adapter must
-   * delegate the main work to the service.
+   *     delegate the main work to the service.
    */
   @override
   List<Post> getPosts() {

@@ -65,8 +65,8 @@ class Circle implements Prototype {
 
   /**
    * (2) Add a named constructor to future prototype classes that takes an object
-   * of the current class as an argument. This constructor should copy from the
-   * supplied object the values of all fields declared within the current class
+   *     of the current class as an argument. This constructor should copy from the
+   *     supplied object the values of all fields declared within the current class
    */
   Circle.createClone(Circle circle) {
     radius = circle.radius;
@@ -82,7 +82,7 @@ class Circle implements Prototype {
 
   /**
    * (3) The cloning method usually consists of just one line: calling the
-   * prototype constructor.
+   *     prototype constructor.
    */
   @override
   Circle clone() => Circle.createClone(this);

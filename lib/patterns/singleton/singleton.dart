@@ -56,8 +56,8 @@ class CustomSingleton {
    */
   static CustomSingleton getInstance(String value) {
     /**
-     *  (3) Add "lazy initialization" (object creation the first time the method is
-     * called) to the creating singleton method.
+     * (3) Add "lazy initialization" (object creation the first time the method is
+     *     called) to the creating singleton method.
      */
     if (_customSingleton == null) {
       _customSingleton = CustomSingleton._(value);
@@ -77,7 +77,7 @@ class CustomSingleton {
   }
 /**
  *   (5) In the client code, replace calls to the singleton constructor with calls
- *   to its constructor method.
+ *       to its constructor method.
  *
  * * No other code will replace the instantiated class
  */

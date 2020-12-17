@@ -3,6 +3,15 @@ import 'run_patterns/run_patterns.dart';
 
 void main() => runApp();
 
+/**
+ * Print information about chosen pattern
+ */
+void _printPatternInfo({String patternClass, String patternName}) {
+  print('------------------------------------------------\n'
+      '| # $patternClass -> $patternName # |'
+      '\n------------------------------------------------');
+}
+
 void runApp() {
   int index;
   do {
@@ -11,7 +20,7 @@ void runApp() {
     index = int.parse(stdin.readLineSync());
     switch (index) {
       /**
-     * Creational patterns
+     * ## Creational patterns
      */
       case 1:
         _printPatternInfo(
@@ -56,7 +65,7 @@ void runApp() {
         Pattern.dartAbstractFactory();
         break;
       /**
-     * Structural patterns
+     * ## Structural patterns
      */
       case 7:
         _printPatternInfo(
@@ -65,15 +74,16 @@ void runApp() {
         );
         Pattern.dartAdapter();
         break;
+      case 8:
+        _printPatternInfo(
+          patternClass: 'Structural patterns',
+          patternName: 'Dart Bridge',
+        );
+        Pattern.dartBridge();
+        break;
 
       default:
         print(index != 0 ? 'Not Exist' : 'Exit');
     }
   } while (index != 0);
 }
-
-/**
- * Print information about chosen pattern
- */
-void _printPatternInfo({String patternClass, String patternName}) =>
-    print('# $patternClass -> $patternName #');
