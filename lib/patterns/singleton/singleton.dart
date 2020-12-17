@@ -32,9 +32,11 @@
  *
  *
  * ## Case (1) create [CustomSingleton].
+ *
  * * Standard solution for OOP languages.
  *   Suitable for one-time initialization of object variables without the possibility
  *   of editing them in the future
+ *
  *
  * ## Implementation steps:
  */
@@ -82,8 +84,10 @@ class CustomSingleton {
 }
 
 /**
- * ## Case (2) create [DartSingleton]. Solution for Dart language. Creates one object
- * with the ability updating the properties USING the referenced instance.
+ * ## Case (2) create [DartSingleton]. Solution for Dart language.
+ *
+ * * Creates one object
+ *   with the ability updating the properties USING the referenced instance.
  */
 class DartSingleton {
   static final DartSingleton _dartSingleton = DartSingleton._();

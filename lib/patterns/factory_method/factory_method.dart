@@ -14,7 +14,6 @@
  *
  *   The factory method separates the production code of products from the rest of the
  *   code that the products use.
- *
  *   Thanks to this, the production code can be extended without touching the main one.
  *   So, to add support for a new product, you need to create a new subclass and define a
  *   factory method in it, returning an instance of the new product from there.

@@ -39,6 +39,7 @@
  *   This will avoid an explosive growth in the number of classes in the program and
  *   reduce its complexity.
  *
+ *
  * ## NOTE:
  *    Dart doesn't have prototypes or prototypal inheritance, and instead uses classical
  *    inheritance. Rather than a prototype, objects have a class, and instead of a

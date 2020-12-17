@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'run_methods/run_methods.dart';
+import 'run_patterns/run_patterns.dart';
 
 void main() => runApp();
 
@@ -11,7 +11,7 @@ void runApp() {
     index = int.parse(stdin.readLineSync());
     switch (index) {
       /**
-     * ## Creational patterns
+     * Creational patterns
      */
       case 1:
         _printPatternInfo(
@@ -48,9 +48,23 @@ void runApp() {
         );
         Pattern.dartBuilder();
         break;
-
-
-
+      case 6:
+        _printPatternInfo(
+          patternClass: 'Creational patterns',
+          patternName: 'Dart Abstract Factory',
+        );
+        Pattern.dartAbstractFactory();
+        break;
+      /**
+     * Structural patterns
+     */
+      case 7:
+        _printPatternInfo(
+          patternClass: 'Structural patterns',
+          patternName: 'Dart Adapter',
+        );
+        Pattern.dartAdapter();
+        break;
 
       default:
         print(index != 0 ? 'Not Exist' : 'Exit');

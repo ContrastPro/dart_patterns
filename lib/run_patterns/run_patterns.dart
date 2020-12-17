@@ -1,3 +1,5 @@
+import '../patterns/abstract_factory/abstract_factory.dart';
+import '../patterns/adapter/adapter.dart';
 import '../patterns/builder/builder.dart';
 import '../patterns/factory_method/factory_method.dart';
 import '../patterns/prototype/prototype.dart';
@@ -72,27 +74,51 @@ class Pattern {
    */
   static void dartBuilder() {
     /**
-     * Директор получает объект конкретного строителя от клиента
-     * (приложения). Приложение само знает какой строитель использовать,
-     * чтобы получить нужный продукт.
+     * The Director receives a specific Builder object from the client (application).
+     * The application itself knows which builder to use to get the desired product.
      */
     final director = Director();
     final carBuilder = CarBuilder();
     director.constructSportsCar(carBuilder);
 
     /**
-     * Готовый продукт возвращает строитель, так как Директор чаще всего не
-     * знает и не зависит от конкретных классов строителей и продуктов.
+     * The finished product is returned by the Builder, since the Director most often
+     * does not know and does not depend on the specific classes of builders and products.
      */
     final car = carBuilder.build();
     print("Car built: ${car.getCarType()}\n");
 
     /**
-     * Директор может знать больше одного рецепта строительства.
+     * The Director may know more than one building recipe.
      */
     final manualBuilder = ManualBuilder();
     director.constructSportsCar(manualBuilder);
     final carManual = manualBuilder.build();
     print(carManual.printManualInfo());
+  }
+
+  /**
+   * ## [AbstractFactory]
+   */
+  static void dartAbstractFactory() {
+    ApplicationStyle application = ApplicationStyle();
+    application.configureStyle("IOS");
+  }
+
+  /**
+   * ## [Adapter]
+   */
+  static void dartAdapter() {
+    /**
+     * Since both adapter classes are guaranteed to have the same interface as IPostsAPI,
+     * we can type API variables as IPostsAPI.
+     */
+    final IPostsAPI apiMedium = MediumAdapter();
+    final IPostsAPI apiHabr = HabrAdapter();
+
+    final List<Post> posts = apiMedium.getPosts() + apiHabr.getPosts();
+    for (int i = 0; i < posts.length; i++) {
+      print("Title: ${posts[i].title}\nContent: ${posts[i].content}\n");
+    }
   }
 }

@@ -6,6 +6,21 @@
  *   step by step. The builder makes it possible to use the same building code to get
  *   different representations of objects.
  *
+ * ## [Director]
+ *
+ * * You can go a step further and split the calls to the builder methods into a
+ *   separate class called the director. In this case, the director will set the order
+ *   of the construction steps, and the builder will carry them out.
+ *
+ * * A separate director class is not strictly required. You can also call builder methods
+ *   directly from client code. However, a director is useful if you have multiple ways to
+ *   design products that differ in order and design steps. In this case, you will be able to
+ *   combine all this logic in one class.
+ *
+ *   This class structure will completely hide
+ *   the process of constructing objects from the client code. The client will only have to
+ *   bind the desired builder to the director, and then receive the finished result from the builder.
+ *
  *
  * ## Applicability.
  *
@@ -17,10 +32,14 @@
  *   all possible construction steps. Each view will have its own builder class.
  *   And the order of the construction stages will be set by the class director.
  *
+ *
  * ## Implementation steps:
  *
- * (1) Интерфейс Строителя объявляет все возможные этапы и шаги конфигурации
- * продукта.
+ * (1) Make sure that creating different representations of an object can be reduced to
+ * general steps.
+ *
+ * (2) The [Builder] interface declares all the possible stages and steps of the product
+ * configuration.
  */
 abstract class Builder {
   void setCarType(CarType carType);
@@ -31,7 +50,10 @@ abstract class Builder {
 }
 
 /**
- * (2) Конкретные строители реализуют шаги, объявленные в общем интерфейсе.
+ * (3) Concrete builders implement the steps declared in the interface.
+ *
+ * For each of the product object representations, create one builder class and
+ * implement their building methods.
  */
 class CarBuilder implements Builder {
   CarType _carType;
@@ -51,12 +73,12 @@ class CarBuilder implements Builder {
 }
 
 /**
- * (3) В отличие от других создающих паттернов, Строители могут создавать совершенно
- * разные продукты, не имеющие общего интерфейса.
+ * (4) Unlike other building patterns, Builders can create completely different products
+ * with no common interface.
  *
- * В данном случае мы производим руководство пользователя автомобиля с помощью
- * тех же шагов, что и сами автомобили. Это устройство позволит создавать
- * руководства под конкретные модели автомобилей, содержащие те или иные фичи.
+ * In this case, we produce the car's user manual [ManualBuilder] using the same steps
+ * as the cars [CarBuilder] themselves. This device will allow you to create manuals for
+ * specific car models, containing certain components.
  */
 class ManualBuilder implements Builder {
   CarType _carType;
@@ -76,7 +98,7 @@ class ManualBuilder implements Builder {
 }
 
 /**
- * Автомобиль — это класс продукта.
+ * [Car] — this is the first product class.
  */
 class Car {
   final CarType _carType;
@@ -97,8 +119,8 @@ class Car {
 }
 
 /**
- * Руководство автомобиля — это второй продукт. Заметьте, что руководство и сам
- * автомобиль не имеют общего родительского класса. По сути, они независимы.
+ * [Manual] — this is the second product. Note that the manual and the vehicle itself
+ * do not have a common parent class. They are essentially independent.
  */
 class Manual {
   final CarType _carType;
@@ -125,7 +147,7 @@ class Manual {
 }
 
 /**
- * Одна из фишек автомобиля.
+ * One of the components of the [Car].
  */
 class Engine {
   final double volume;
@@ -141,9 +163,9 @@ class Engine {
 enum CarType { CITY_CAR, SPORTS_CAR }
 
 /**
- * Директор знает в какой последовательности заставлять работать строителя. Он
- * работает с ним через общий интерфейс Строителя. Из-за этого, он может не
- * знать какой конкретно продукт сейчас строится.
+ * The director knows in what order to make the builder work. He works with it
+ * through the general Builder interface. Because of this, he may not know what
+ * specific product is currently being built.
  */
 class Director {
   void constructSportsCar(Builder builder) {
@@ -158,3 +180,9 @@ class Director {
     builder.setSeats(4);
   }
 }
+/**
+ * (5) The client code will need to create both the builder objects and the director object.
+ * Before starting construction, the client must link a specific builder with a director.
+ * This can be done either through the constructor, or through the setter, or by feeding the
+ * builder directly into the director's construction method.
+ */
