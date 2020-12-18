@@ -1,12 +1,10 @@
-import '../patterns/abstract_factory/abstract_factory.dart';
-import '../patterns/adapter/adapter.dart';
-import '../patterns/bridge/bridge.dart';
-import '../patterns/builder/builder.dart';
-import '../patterns/factory_method/factory_method.dart';
-import '../patterns/prototype/prototype.dart';
-import '../patterns/singleton/singleton.dart';
+import '../../patterns/abstract_factory/abstract_factory.dart';
+import '../../patterns/builder/builder.dart';
+import '../../patterns/factory_method/factory_method.dart';
+import '../../patterns/prototype/prototype.dart';
+import '../../patterns/singleton/singleton.dart';
 
-class Pattern {
+class CreationalPattern {
   /**
    * ## [CustomSingleton]
    */
@@ -57,20 +55,6 @@ class Pattern {
   }
 
   /**
-   * ## [FactoryMethod]
-   */
-  static void dartFactoryMethod() {
-    final windowsButton =
-        FloatingActionButton.extended(OperationSystem.windows);
-    final iosButton = FloatingActionButton.extended(OperationSystem.ios);
-    final linuxButton = FloatingActionButton.extended(OperationSystem.linux);
-
-    print("Created $windowsButton.");
-    print("Created $iosButton.");
-    print("Created $linuxButton.");
-  }
-
-  /**
    * ## [Builder]
    */
   static void dartBuilder() {
@@ -99,41 +83,24 @@ class Pattern {
   }
 
   /**
+   * ## [FactoryMethod]
+   */
+  static void dartFactoryMethod() {
+    final windowsButton =
+        FloatingActionButton.extended(OperationSystem.windows);
+    final iosButton = FloatingActionButton.extended(OperationSystem.ios);
+    final linuxButton = FloatingActionButton.extended(OperationSystem.linux);
+
+    print("Created $windowsButton.");
+    print("Created $iosButton.");
+    print("Created $linuxButton.");
+  }
+
+  /**
    * ## [AbstractFactory]
    */
   static void dartAbstractFactory() {
     ApplicationStyle application = ApplicationStyle();
     application.configureStyle("IOS");
-  }
-
-  /**
-   * ## [Adapter]
-   */
-  static void dartAdapter() {
-    /**
-     * Since both adapter classes are guaranteed to have the same interface as IPostsAPI,
-     * we can type API variables as IPostsAPI.
-     */
-    final IPostsAPI apiMedium = MediumAdapter();
-    final IPostsAPI apiHabr = HabrAdapter();
-
-    final List<Post> posts = apiMedium.getPosts() + apiHabr.getPosts();
-    for (int i = 0; i < posts.length; i++) {
-      print("Title: ${posts[i].title}\nContent: ${posts[i].content}\n");
-    }
-  }
-
-  /**
-   * ## [Bridge]
-   */
-  static void dartBridge() {
-    final flutterWindows = FlutterEngine(flutterSDK: FlutterWindows());
-    flutterWindows.runApp();
-
-    final flutterIOS = FlutterEngine(flutterSDK: FlutterIOS());
-    flutterIOS.runApp();
-
-    final flutterWEB = FlutterEngine(flutterSDK: FlutterWEB());
-    flutterWEB.runApp();
   }
 }

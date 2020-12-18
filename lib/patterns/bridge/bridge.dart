@@ -72,21 +72,21 @@ abstract class FlutterSDK {
 class FlutterWindows extends FlutterSDK {
   @override
   void buildApp() {
-    print("Flutter build for Windows");
+    print("Flutter app build for Windows");
   }
 }
 
 class FlutterIOS extends FlutterSDK {
   @override
   void buildApp() {
-    print("Flutter build for IOS");
+    print("Flutter app build for IOS");
   }
 }
 
 class FlutterWEB extends FlutterSDK {
   @override
   void buildApp() {
-    print("Flutter build for WEB");
+    print("Flutter app build for WEB");
   }
 }
 

@@ -66,7 +66,7 @@ class IOSButton implements Button {
 
 /**
  * (3) Define an abstract factory interface. It must have factory methods to create
- * each of the product types.
+ *     each of the product types.
  *
  * An [AbstractFactory] knows about all (abstract) product types.
  */
@@ -76,7 +76,7 @@ abstract class AbstractFactory {
 
 /**
  * (4) Create concrete factory classes by implementing the abstract factory interface.
- * There should be as many of these classes as there are variations of product families.
+ *     There should be as many of these classes as there are variations of product families.
  *
  * Each specific factory knows and creates only the products of its variation.
  */

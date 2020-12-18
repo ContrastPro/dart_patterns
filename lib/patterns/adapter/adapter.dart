@@ -69,14 +69,14 @@ class Post {
  * (2) Describe a client interface through which application classes can use the
  *     service class.
  */
-abstract class IPostsAPI {
+abstract class PostsAPI {
   List<Post> getPosts();
 }
 
 /**
  * (3) Create an adapter class by implementing this interface.
  */
-class MediumAdapter implements IPostsAPI {
+class MediumAdapter implements PostsAPI {
   /**
    * (4) Place a field in the adapter that will hold the link to the service object.
    *     Typically, this field is populated with an object passed to the adapter constructor.
@@ -99,7 +99,7 @@ class MediumAdapter implements IPostsAPI {
   }
 }
 
-class HabrAdapter implements IPostsAPI {
+class HabrAdapter implements PostsAPI {
   final api = HabrAPI();
 
   @override
