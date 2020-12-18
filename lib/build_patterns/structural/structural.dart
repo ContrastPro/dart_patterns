@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import '../../patterns/adapter/adapter.dart';
 import '../../patterns/bridge/bridge.dart';
 import '../../patterns/composite/composite.dart';
 import '../../patterns/decorator/decorator.dart';
+import '../../patterns/facade/facade.dart';
 
-class StructuralPattern{
+class StructuralPattern {
   /**
    * ## [Adapter]
    */
@@ -81,4 +84,22 @@ class StructuralPattern{
     final blueGreenSquare = BlueShapeDecorator(greenSquare);
     print(blueGreenSquare.draw());
   }
+
+  /**
+   * ## [Facade]
+   */
+  static void dartFacade() {
+    PC pc = PC();
+    stdin.readLineSync() == "on" ? pc.turnOn() : pc.turnOff();
+  }
+
+  /**
+   * ## [Flyweight]
+   */
+  static void dartFlyweight() {}
+
+  /**
+   * ## [Proxy]
+   */
+  static void dartProxy() {}
 }

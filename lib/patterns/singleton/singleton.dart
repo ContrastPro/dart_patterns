@@ -60,7 +60,7 @@ class CustomSingleton {
      *     called) to the creating singleton method.
      */
     if (_customSingleton == null) {
-      _customSingleton = CustomSingleton._(value);
+      _customSingleton = CustomSingleton._(customSingletonValue: value);
     }
     return _customSingleton;
   }
@@ -68,12 +68,11 @@ class CustomSingleton {
   /**
    *   (4) Make the constructor of the class private.
    *
-   * * Class constructor [Singleton._()] will be accessible only from its class.
+   * * Class constructor [CustomSingleton._()] will be accessible only from its class.
    *   However, you can call the private constructor in the same file.
    */
-  CustomSingleton._(String value) {
+  CustomSingleton._({this.customSingletonValue}) {
     print("Lazy initialization (first initialization) do something....");
-    this.customSingletonValue = value;
   }
 /**
  *   (5) In the client code, replace calls to the singleton constructor with calls
@@ -90,17 +89,35 @@ class CustomSingleton {
  *   with the ability updating the properties USING the referenced instance.
  */
 class DartSingleton {
-  static final DartSingleton _dartSingleton = DartSingleton._();
+  /**
+   *   (1) Add a private static field to the class that will contain a single object.
+   */
+  static DartSingleton _dartSingleton;
   String dartSingletonValue;
 
+  /**
+   * (2) Add factory constructor.
+   *     A factory constructor can be used in cases where the constructor doesn't
+   *     always create a new instance of its class, as a standard constructor must.
+   */
   factory DartSingleton(String value) {
     /**
-     * The Object will be the same, but we're updating the properties USING the
-     * referenced instance.
+     * (3) Add "lazy initialization" (object creation the first time the method is
+     *     called).
      */
-    _dartSingleton.dartSingletonValue = value;
+    if (_dartSingleton == null) {
+      _dartSingleton = DartSingleton._(dartSingletonValue: value);
+    }
     return _dartSingleton;
   }
 
-  DartSingleton._();
+  /**
+   *   (4) Make the constructor of the class private.
+   *
+   * * Class constructor [DartSingleton._()] will be accessible only from its class.
+   *   However, you can call the private constructor in the same file.
+   */
+  DartSingleton._({this.dartSingletonValue}) {
+    print("Lazy initialization (first initialization) do something....");
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'build_patterns/structural/structural.dart';
 import 'build_patterns/сreational/сreational.dart';
+import 'test/test.dart';
 
 void main() => runApp();
 
@@ -14,6 +15,8 @@ void runApp() {
       _buildCreational(index);
     } else if (index >= 7 && index <= 13) {
       _buildStructural(index);
+    } else if (index == 3141) {
+      Test.customTest();
     } else {
       print(index != 0 ? 'Not Exist' : 'Exit');
     }
@@ -111,6 +114,27 @@ void _buildStructural(int index) {
         patternName: 'Dart Decorator',
       );
       StructuralPattern.dartDecorator();
+      break;
+    case 11:
+      _printPatternInfo(
+        patternClass: 'Structural patterns',
+        patternName: 'Dart Facade',
+      );
+      StructuralPattern.dartFacade();
+      break;
+    case 12:
+      _printPatternInfo(
+        patternClass: 'Structural patterns',
+        patternName: 'Dart Flyweight',
+      );
+      StructuralPattern.dartFlyweight();
+      break;
+    case 13:
+      _printPatternInfo(
+        patternClass: 'Structural patterns',
+        patternName: 'Dart Proxy',
+      );
+      StructuralPattern.dartProxy();
       break;
   }
 }
