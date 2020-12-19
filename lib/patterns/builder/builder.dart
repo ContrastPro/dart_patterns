@@ -2,44 +2,52 @@
  *
  * ## The essence of the pattern.
  *
- * * Builder is a generative design pattern that lets you create complex objects
- *   step by step. The builder makes it possible to use the same building code to get
- *   different representations of objects.
+ * * Builder is a creational design pattern that lets you construct complex
+ *   objects step by step. The pattern allows you to produce different types and
+ *   representations of an object using the same construction code.
+ *
  *
  * ## [Director]
  *
- * * You can go a step further and split the calls to the builder methods into a
- *   separate class called the director. In this case, the director will set the order
- *   of the construction steps, and the builder will carry them out.
+ * * You can go further and extract a series of calls to the builder steps you
+ *   use to construct a product into a separate class called director.
+ *   The director class defines the order in which to execute the building steps,
+ *   while the builder provides the implementation for those steps.
  *
- * * A separate director class is not strictly required. You can also call builder methods
- *   directly from client code. However, a director is useful if you have multiple ways to
- *   design products that differ in order and design steps. In this case, you will be able to
- *   combine all this logic in one class.
+ * * Having a director class in your program isn’t strictly necessary. You can
+ *   always call the building steps in a specific order directly from the client
+ *   code. However, the director class might be a good place to put various
+ *   construction routines so you can reuse them across your program.
  *
- *   This class structure will completely hide
- *   the process of constructing objects from the client code. The client will only have to
- *   bind the desired builder to the director, and then receive the finished result from the builder.
+ *   In addition, the director class completely hides the details of product
+ *   construction from the client code. The client only needs to associate
+ *   a builder with a director, launch the construction with the director, and
+ *   get the result from the builder.
  *
  *
  * ## Applicability.
  *
- * * When your code needs to create different representations of some object.
- *   For example, Cars and cars Manual.
+ * * Use the Builder pattern when you want your code to be able to create
+ *   different representations of some product (for example, Cars and
+ *   cars Manual).
  *
- *   The builder can be used if the creation of multiple representations of an object
- *   consists of the same steps that differ in detail. The builder interface will define
- *   all possible construction steps. Each view will have its own builder class.
- *   And the order of the construction stages will be set by the class director.
+ * * The Builder pattern can be applied when construction of various
+ *   representations of the product involves similar steps that differ only
+ *   in the details.
+ *
+ *   The base builder interface defines all possible
+ *   construction steps, and concrete builders implement these steps to
+ *   construct particular representations of the product. Meanwhile, the
+ *   director class guides the order of construction.
  *
  *
  * ## Implementation steps:
  *
- * (1) Make sure that creating different representations of an object can be reduced to
- *     general steps.
+ * (1) Make sure that you can clearly define the common construction steps for
+ *     building all available product representations. Otherwise, you won’t be
+ *     able to proceed with implementing the pattern.
  *
- * (2) The [Builder] interface declares all the possible stages and steps of the product
- *     configuration.
+ * (2) Declare these steps in the base [Builder] interface.
  */
 abstract class Builder {
   void setCarType(CarType carType);
@@ -50,9 +58,8 @@ abstract class Builder {
 }
 
 /**
- * (3) Concrete builders implement the steps declared in the interface.
- *     For each of the product object representations, create one builder class and
- *     implement their building methods.
+ * (3) Create a concrete builder class for each of the product representations
+ *     and implement their construction steps.
  */
 class CarBuilder implements Builder {
   CarType _carType;
@@ -72,12 +79,13 @@ class CarBuilder implements Builder {
 }
 
 /**
- * (4) Unlike other building patterns, Builders can create completely different products
- *     with no common interface.
+ * (4) Unlike other building patterns, Builders can create completely different
+ *     products with no common interface.
  *
- *     In this case, we produce the car's user manual [ManualBuilder] using the same steps
- *     as the cars [CarBuilder] themselves. This device will allow you to create manuals for
- *     specific car models, containing certain components.
+ *     In this case, we produce the car's user manual [ManualBuilder] using the
+ *     same steps as the cars [CarBuilder] themselves. This class will allow
+ *     you to create manuals for specific car models, containing certain
+ *     components.
  */
 class ManualBuilder implements Builder {
   CarType _carType;
@@ -118,8 +126,8 @@ class Car {
 }
 
 /**
- * [Manual] — this is the second product. Note that the manual and the vehicle itself
- * do not have a common parent class. They are essentially independent.
+ * [Manual] — this is the second product. Note that the manual and the vehicle
+ * itself do not have a common parent class. They are essentially independent.
  */
 class Manual {
   final CarType _carType;
@@ -167,6 +175,14 @@ enum CarType { CITY_CAR, SPORTS_CAR }
  * specific product is currently being built.
  */
 class Director {
+  /**
+   * (5) The client code creates both the builder and the director objects.
+   *     Before construction starts, the client must pass a builder object to
+   *     the director. Usually, the client does this only once, via parameters
+   *     of the director’s constructor. The director uses the builder object in
+   *     all further construction. There’s an alternative approach, where the
+   *     builder is passed directly to the construction method of the director.
+   */
   void constructSportsCar(Builder builder) {
     builder.setCarType(CarType.SPORTS_CAR);
     builder.setEngine(Engine(11, 25000));
@@ -179,9 +195,3 @@ class Director {
     builder.setSeats(4);
   }
 }
-/**
- * (5) The client code will need to create both the builder objects and the director object.
- *     Before starting construction, the client must link a specific builder with a director.
- *     This can be done either through the constructor, or through the setter, or by feeding the
- *     builder directly into the director's construction method.
- */

@@ -2,42 +2,50 @@
  *
  * ## The essence of the pattern.
  *
- * * A facade is a structural design pattern that provides a simple interface to a
- *   complex class system, library, or framework.
+ * * Facade is a structural design pattern that provides a simplified interface
+ *   to a library, a framework, or any other complex set of classes.
  *
  *
  * ## Analogy from life.
  *
- * * When you call a store and place an order over the phone, a customer support person
- *   is your front to all services and departments of the store. It provides you with a
- *   simplified interface to the order creation system, payment system and shipping department.
+ * * When you call a shop to place a phone order, an operator is your facade to
+ *   all services and departments of the shop. The operator provides you with
+ *   a simple voice interface to the ordering system, payment gateways, and
+ *   various delivery services.
  *
  *
  * ## Applicability.
  *
- * * When you need to present a simple interface to a complex subsystem.
+ * *  Use the Facade pattern when you need to have a limited but straightforward
+ *   interface to a complex subsystem.
  *
- *   Subsystems often become more complex as the program develops. Applying most patterns
- *   results in smaller classes, but in larger numbers. It is easier to reuse such a subsystem,
- *   adjusting it each time for specific needs, but at the same time, it becomes more difficult
- *   to use the subsystem without tuning. The façade offers a certain default system view that
- *   suits most clients.
+ *   Often, subsystems get more complex over time. Even applying design patterns
+ *   typically leads to creating more classes. A subsystem may become more
+ *   flexible and easier to reuse in various contexts, but the amount of
+ *   configuration and boilerplate code it demands from a client grows ever
+ *   larger.
  *
- * * When you want to decompose a subsystem into separate layers.
+ *   The Facade attempts to fix this problem by providing a shortcut to the
+ *   most-used features of the subsystem which fit most client requirements.
  *
- *   Use facades to define entry points for each level of the subsystem.
- *   If subsystems depend on each other, then the dependency can be simplified by allowing
- *   subsystems to exchange information only through facades.
+ * * Use the Facade when you want to structure a subsystem into layers.
+ *
+ *   Create facades to define entry points to each level of a subsystem.
+ *   You can reduce coupling between multiple subsystems by requiring them to
+ *   communicate only through facades.
  *
  * ## Implementation steps:
  *
- * (1) Determine if you can create a simpler interface than the complex subsystem provides.
- *     You are on the right track if this interface saves the client from having to know about
- *     the details of the subsystem.
+ * (1) Check whether it’s possible to provide a simpler interface than what an
+ *     existing subsystem already provides. You’re on the right track if this
+ *     interface makes the client code independent from many of the
+ *     subsystem’s classes.
  *
- * (2) Create a facade class that implements this interface. It should forward client calls
- *     to the desired subsystem objects. The facade will have to take care to properly initialize
- *     the subsystem objects.
+ * (2) Declare and implement this interface in a new facade class.
+ *     The facade should redirect the calls from the client code to appropriate
+ *     objects of the subsystem. The facade should be responsible for
+ *     initializing the subsystem and managing its further life cycle unless
+ *     the client code already does this.
  */
 class PC {
   final _motherboard = Motherboard();
@@ -45,9 +53,11 @@ class PC {
   final _graphicsCard = GraphicsCard();
 
   /**
-   * (3) You will get maximum benefit if the client only works with the facade. In this case,
-   *     changes to the subsystem will affect only the facade code, and the client code will remain
-   *     working.
+   * (3) To get the full benefit from the pattern, make all the client code
+   *     communicate with the subsystem only via the facade. Now the client code
+   *     is protected from any changes in the subsystem code. For example,
+   *     when a subsystem gets upgraded to a new version, you will only need
+   *     to modify the code in the facade.
    */
   void turnOn() {
     print("\nPC turned ON\n\n");

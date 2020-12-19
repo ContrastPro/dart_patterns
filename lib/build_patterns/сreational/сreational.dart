@@ -59,16 +59,18 @@ class CreationalPattern {
    */
   static void dartBuilder() {
     /**
-     * The Director receives a specific Builder object from the client (application).
-     * The application itself knows which builder to use to get the desired product.
+     * The Director receives a specific Builder object from the client
+     * (application). The application itself knows which builder to use to get
+     * the desired product.
      */
     final director = Director();
     final carBuilder = CarBuilder();
     director.constructSportsCar(carBuilder);
 
     /**
-     * The finished product is returned by the Builder, since the Director most often
-     * does not know and does not depend on the specific classes of builders and products.
+     * The finished product is returned by the Builder, since the Director most
+     * often does not know and does not depend on the specific classes of
+     * builders and products.
      */
     final car = carBuilder.build();
     print("Car built: ${car.getCarType()}\n");

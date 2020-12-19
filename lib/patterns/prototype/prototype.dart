@@ -2,53 +2,50 @@
  *
  * ## The essence of the pattern.
  *
- * * Prototype is a generative design pattern that allows objects to be copied
- *   without going into the details of their implementation.
+ * * Prototype is a creational design pattern that lets you copy existing
+ *   objects without making your code dependent on their classes.
  *
  *
  * ## Analogy from life.
  *
- * * In industrial production, prototypes are created before the main batch of products
- *   for all kinds of tests. At the same time, the prototype does not participate in
- *   subsequent production, playing a passive role.
- *
- * * A prototype in production does not make a copy of itself, so a closer example of a
- *   pattern is cell division. After mitotic cell division, two completely identical
- *   cells are formed. The original cell plays the role of a prototype, taking an active
- *   part in the creation of a new object.
+ * * Since industrial prototypes don’t really copy themselves, a much closer
+ *   analogy to the pattern is the process of mitotic cell division
+ *   (biology, remember?). After mitotic division, a pair of identical cells is
+ *   formed. The original cell acts as a prototype and takes an active role in
+ *   creating the copy.
  *
  *
  * ## Applicability.
  *
- * * When your code should not depend on the classes of the objects being copied.
- *   This is often the case if your code is working with objects served externally
- *   through some common interface. You cannot bind to their classes even if you
- *   wanted to, since their specific classes are unknown.
+ * * Use the Prototype pattern when your code shouldn’t depend on the concrete
+ *   classes of objects that you need to copy.
  *
- *   The prototype pattern provides the client with a common interface for working
- *   with all prototypes. The client does not need to depend on all the classes of the
- *   copied objects, but only on the cloning interface.
+ *   This happens a lot when your code works with objects passed to you from 3
+ *   rd-party code via some interface. The concrete classes of these objects are
+ *   unknown, and you couldn’t depend on them even if you wanted to.
  *
- * * When you have a bunch of subclasses that differ in initial field values.
- *   Someone could have created all of these classes to be able to easily spawn objects
- *   with a specific configuration.
+ *   The Prototype pattern provides the client code with a general interface for
+ *   working with all objects that support cloning. This interface makes the
+ *   client code independent from the concrete classes of objects that it clones.
  *
- *   The prototype attribute suggests using a set of prototypes instead of subclassing to
- *   describe popular object configurations. Thus, instead of subclassing objects,
- *   you will copy existing prototype objects that already have internal state set up.
- *   This will avoid an explosive growth in the number of classes in the program and
- *   reduce its complexity.
+ * * Use the pattern when you want to reduce the number of subclasses that only
+ *   differ in the way they initialize their respective objects. Somebody could
+ *   have created these subclasses to be able to create objects with a specific
+ *   configuration.
+ *
+ *   The Prototype pattern lets you use a set of pre-built objects, configured
+ *   in various ways, as prototypes.
  *
  *
  * ## NOTE:
- *    Dart doesn't have prototypes or prototypal inheritance, and instead uses classical
- *    inheritance. Rather than a prototype, objects have a class, and instead of a
- *    prototype chain, objects have an super classes.
+ *    Dart doesn't have prototypes or prototypal inheritance, and instead uses
+ *    classical inheritance. Rather than a prototype, objects have a class, and
+ *    instead of a prototype chain, objects have an super classes.
  *
  *
  * ## Implementation steps:
  *
- * (1) Create a prototype interface with a single [clone()] method.
+ * (1) Create the prototype interface and declare the [clone()] method in it.
  */
 abstract class Prototype {
   String color;
@@ -64,9 +61,10 @@ class Circle implements Prototype {
   Circle({this.radius = 30, this.color = "White"});
 
   /**
-   * (2) Add a named constructor to future prototype classes that takes an object
-   *     of the current class as an argument. This constructor should copy from the
-   *     supplied object the values of all fields declared within the current class
+   * (2) A prototype class must define the alternative constructor that accepts
+   *     an object of that class as an argument. The constructor must copy the
+   *     values of all fields defined in the class from the passed object into
+   *     the newly created instance.
    */
   Circle.createClone(Circle circle) {
     radius = circle.radius;

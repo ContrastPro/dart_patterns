@@ -4,55 +4,61 @@ import 'dart:convert';
  *
  * ## The essence of the pattern.
  *
- * * An [Adapter] is a structural design pattern that allows objects with incompatible
- *   interfaces to work together.
- *   The intermediary class acts as a bridge between your
- *   client code and another class. You could also think of the [Adapter] class as a wrapper
- *   around an object of another class.
+ * * An [Adapter] is a structural design pattern that allows objects with
+ *   incompatible interfaces to work together.
+ *
+ *   This is a special object that converts the interface of one object so that
+ *   another object can understand it. An adapter wraps one of the objects to
+ *   hide the complexity of conversion happening behind the scenes. The wrapped
+ *   object isn’t even aware of the adapter.
  *
  *
  * ## Analogy from life.
  *
- * * When you fly abroad for the first time, you may be in for a surprise when you try
- *   to charge your laptop. Outlet standards differ from country to country.
- *   Your European charger will be useless in the US without a dedicated adapter that
- *   allows you to plug into a different outlet.
+ * * When you travel from the US to Europe for the first time, you may get a
+ *   surprise when trying to charge your laptop. The power plug and sockets
+ *   standards are different in different countries. That’s why your US plug
+ *   won’t fit a German socket. The problem can be solved by using a power plug
+ *   adapter that has the American-style socket and the European-style plug.
  *
  *
  * ## Applicability.
  *
- * * When you want to use a third party class, but its interface doesn't match the rest
- *   of the application code.
- *   The [Adapter] allows you to create a shim object that will turn your application calls
- *   into a format that a third-party class can understand.
+ * * Use the Adapter class when you want to use some existing class, but its
+ *   interface isn’t compatible with the rest of your code.
+ *
+ *   The Adapter pattern lets you create a middle-layer class that serves as a
+ *   translator between your code and a legacy class, a 3rd-party class or any
+ *   other class with a weird interface.
  *
  *
  * ## Implementation steps:
  *
- * (1) Make sure you have two classes with incompatible interfaces
+ * (1) Make sure that you have at least two classes with incompatible
+ *     interfaces
  *
- * (1.1) A useful service is a utility class that you cannot modify
- *       (it is either third-party or other code depends on it);
+ * (1.1) A useful service class, which you can’t change
+ *       (often 3rd-party, legacy or with lots of existing dependencies).
  */
 class MediumAPI {
   String getMediumPosts() {
     /**
-     * Note that each API has a different method for acquiring posts, and though they both
-     * return content in JSON format, the property names differ.
+     * Note that each API has a different method for acquiring posts, and though
+     * they both return content in JSON format, the property names differ.
      */
     return '[{"headline": "Medium headline", "text": "Text 1..."}]';
   }
 }
 
 /**
- * (1.2) One or more clients - existing application classes that are incompatible
- *       with the service due to an inconvenient or mismatched interface.
+ * (1.2) One or several client classes that would benefit from using the service
+ *       class.
  */
 class HabrAPI {
   String getHabrPosts() {
     /**
-     * Note that each API has a different method for acquiring posts, and though they both
-     * return content in JSON format, the property names differ.
+     * Note that each API has a different method for acquiring posts, and though
+     * they both return content in JSON format, the property names differ.
      */
     return '[{"header": "Habr header", "body": "Body 1..."}]';
   }
@@ -78,16 +84,17 @@ abstract class PostsAPI {
  */
 class MediumAdapter implements PostsAPI {
   /**
-   * (4) Place a field in the adapter that will hold the link to the service object.
-   *     Typically, this field is populated with an object passed to the adapter constructor.
-   *     For simple adaptation, this object can be passed through the parameters of the adapter
-   *     methods.
+   * (4) Add a field to the adapter class to store a reference to the service
+   *     object. The common practice is to initialize this field via the
+   *     constructor, but sometimes it’s more convenient to pass it to the
+   *     adapter when calling its methods.
    */
   final api = MediumAPI();
 
   /**
-   * (5) Implement all client interface methods in the adapter. The adapter must
-   *     delegate the main work to the service.
+   * (5) One by one, implement all methods of the client interface in the
+   *     adapter class. The adapter should delegate most of the real work to the
+   *     service object, handling only the interface or data format conversion.
    */
   @override
   List<Post> getPosts() {

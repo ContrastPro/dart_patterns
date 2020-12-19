@@ -2,51 +2,52 @@
  *
  * ## The essence of the pattern.
  *
- * * A bridge is a structural design pattern that separates one or more classes into two
- *   separate hierarchies - abstraction and implementation, allowing them to be modified
- *   independently of each other.
+ * * Bridge is a structural design pattern that lets you split a large class or
+ *   a set of closely related classes into two separate hierarchies—abstraction
+ *   and implementation—which can be developed independently of each other.
  *
  *
  * ## Abstraction and Implementation
  *
- * * Abstraction (or interface) is a figurative layer of control over something.
- *   It does not do the work on its own, but delegates it to the implementation
- *   layer (sometimes called the platform).
+ * * Abstraction (also called interface) is a high-level control layer for some
+ *   entity. This layer isn’t supposed to do any real work on its own. It should
+ *   delegate the work to the implementation layer (also called platform).
  *
  *
  * ## Analogy from life.
  *
- * * If we talk about real programs, then the abstraction can be the graphical interface
- *   of the program (GUI), and the implementation can be the low-level code
- *   of the operating system (API), which the graphical interface refers to in response
- *   to user actions.
+ * * When talking about real applications, the abstraction can be represented
+ *   by a graphical user interface (GUI), and the implementation could be the
+ *   underlying operating system code (API) which the GUI layer calls in
+ *   response to user interactions.
  *
  *
  * ## Applicability.
  *
- * * When you want to split up a monolithic class that contains several different
- *   implementations of some functionality (for example, if the class can work with
- *   different database systems).
+ * * Use the Bridge pattern when you want to divide and organize a monolithic
+ *   class that has several variants of some functionality (for example, if the
+ *   class can work with various database servers).
  *
- *   The larger the class, the harder it is to understand its code, and the more it
- *   delays development. The bridge allows you to split a monolithic class into several
- *   separate hierarchies. After that, you can change their code independently of each other.
- *   This makes it easier to work on the code and reduces the likelihood of introducing errors.
+ *   The bigger a class becomes, the harder it is to figure out how it works,
+ *   and the longer it takes to make a change. The changes made to one of the
+ *   variations of functionality may require making changes across the whole
+ *   class, which often results in making errors or not addressing some critical
+ *   side effects.
  *
  * * When a class needs to be extended in two independent planes.
  *
- *   The bridge suggests separating one of these planes into a separate class hierarchy,
- *   keeping a link to one of its objects in the original class.
+ *   The bridge suggests separating one of these planes into a separate class
+ *   hierarchy, keeping a link to one of its objects in the original class.
  *
  *
  * ## Implementation steps:
  *
- * (1) Determine if there are two disjoint dimensions in your classes. It can be
- *     functionality / platform, domain / infrastructure, front-end / back-end,
- *     or interface / implementation.
+ * (1) Identify the orthogonal dimensions in your classes. These independent
+ *     concepts could be: abstraction/platform, domain/infrastructure,
+ *     front-end/back-end, or interface/implementation.
  *
  * (2) Abstraction.
- *     Consider what operations your clients will need and describe them in a base
+ *     See what operations the client needs and define them in the base
  *     abstraction class.
  */
 abstract class Framework {
@@ -57,17 +58,17 @@ abstract class Framework {
 
 /**
  * (3) Implementation.
- *     Define the behaviors that are available on all platforms and isolate the part
- *     that needs the abstraction. Based on this, describe a common implementation
- *     interface.
+ *     Determine the operations available on all platforms. Declare the ones
+ *     that the abstraction needs in the general implementation interface.
+ *     Based on this, describe a common implementation interface.
  */
 abstract class FlutterSDK {
   void buildApp();
 }
 
 /**
- * (4) For each platform, create your own implementation-specific class. They all
- *     need to follow the common interface that we outlined before.
+ * (4) For all platforms in your domain create concrete implementation classes,
+ *     but make sure they all follow the implementation interface.
  */
 class FlutterWindows extends FlutterSDK {
   @override
@@ -92,16 +93,17 @@ class FlutterWEB extends FlutterSDK {
 
 class FlutterEngine extends Framework {
   /**
-   * (5) Add a reference to the implementation object to the abstraction class.
-   *     Implement abstraction methods by delegating the main work to a related
-   *     implementation object.
+   * (5) Inside the abstraction class, add a reference field for the
+   *     implementation type. The abstraction delegates most of the work to
+   *     the implementation object that’s referenced in that field.
    */
   FlutterSDK flutterSDK;
 
   /**
-   * (6) The client must feed the implementation object to the abstraction constructor
-   *     to tie them together. After that, he can freely use the abstraction object, forgetting
-   *     about the implementation.
+   * (6) The client code should pass an implementation object to the
+   *     abstraction’s constructor to associate one with the other. After that,
+   *     the client can forget about the implementation and work only with the
+   *     abstraction object.
    */
   FlutterEngine({this.flutterSDK});
 

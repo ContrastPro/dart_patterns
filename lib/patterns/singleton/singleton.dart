@@ -2,12 +2,13 @@
  *
  * ## The essence of the pattern.
  *
- * * Singleton guarantees the existence of only one object of a certain class, and
- *   also allows to reach this object from anywhere in the program.
+ * * Singleton is a creational design pattern that lets you ensure that a class
+ *   has only one instance, while providing a global access point to this
+ *   instance.
  *
- *   All singleton implementations boil down to hiding the default constructor and
- *   creating a public static method that will control the lifecycle of the singleton
- *   object.
+ *   All singleton implementations boil down to hiding the default constructor
+ *   and creating a public static method that will control the lifecycle of the
+ *   singleton object.
  *
  * * If you have access to the singleton class, then you will have access to this
  *   static method as well. From whatever point in the code you call it, it will
@@ -16,48 +17,54 @@
  *
  * ## Analogy from life.
  *
- * * The government of the state is a good example of a loner. There can be only one
- *   official government in a state. Regardless of who exactly sits in the government,
- *   it has a global access point "Government of country N".
+ * * The government is an excellent example of the Singleton pattern. A country
+ *   can have only one official government. Regardless of the personal identities
+ *   of the individuals who form governments, the title, “The Government of X”,
+ *   is a global point of access that identifies the group of people in charge.
  *
  *
  * ## Applicability.
  *
- * * When the program should have a single instance of a class available to all clients
- *   (for example, shared access to a database from different parts of the program).
+ * * Use the Singleton pattern when a class in your program should have just a
+ *   single instance available to all clients; for example, a single database
+ *   object shared by different parts of the program.
  *
- *   A singleton hides from clients all methods of creating a new object, except for a
- *   special method. This method either creates an object, or gives an existing object
- *   if it has already been created.
+ *   The Singleton pattern disables all other means of creating objects of a
+ *   class except for the special creation method. This method either creates a
+ *   new object or returns an existing one if it has already been created.
  *
  *
  * ## Case (1) create [CustomSingleton].
  *
  * * Standard solution for OOP languages.
- *   Suitable for one-time initialization of object variables without the possibility
- *   of editing them in the future
+ *   Suitable for one-time initialization of object variables without the
+ *   possibility of editing them in the future
  *
  *
  * ## Implementation steps:
  */
 class CustomSingleton {
   /**
-   *   (1) Add a private static field to the class that will contain a single object.
+   *   (1) Add a private static field to the class for storing the singleton
+   *       instance.
    *
    * * The static keyword is used for a class-level variable and method that is
-   *   the same for every instance of a class, this means if a data member is static,
-   *   it can be accessed without creating an object.
+   *   the same for every instance of a class, this means if a data member
+   *   is static, it can be accessed without creating an object.
    */
   static CustomSingleton _customSingleton;
   String customSingletonValue;
 
   /**
-   *  (2) Declare a static constructor method to be used to get the singleton.
+   *  (2) Declare a public static creation method for getting the singleton
+   *      instance.
    */
   static CustomSingleton getInstance(String value) {
     /**
-     * (3) Add "lazy initialization" (object creation the first time the method is
-     *     called) to the creating singleton method.
+     * (3) Implement “lazy initialization” inside the static method. It should
+     *     create a new object on its first call and put it into the static
+     *     field. The method should always return that instance on all
+     *     subsequent calls.
      */
     if (_customSingleton == null) {
       _customSingleton = CustomSingleton._(customSingletonValue: value);
@@ -66,17 +73,19 @@ class CustomSingleton {
   }
 
   /**
-   *   (4) Make the constructor of the class private.
+   *   (4) Make the constructor of the class private. The static method of the
+   *       class will still be able to call the constructor, but not the other
+   *       objects.
    *
-   * * Class constructor [CustomSingleton._()] will be accessible only from its class.
-   *   However, you can call the private constructor in the same file.
+   * * Class constructor [CustomSingleton._()] will be accessible only from its
+   *   class. However, you can call the private constructor in the same file.
    */
   CustomSingleton._({this.customSingletonValue}) {
     print("Lazy initialization (first initialization) do something....");
   }
 /**
- *   (5) In the client code, replace calls to the singleton constructor with calls
- *       to its constructor method.
+ *   (5) Go over the client code and replace all direct calls to the singleton’s
+ *       constructor with calls to its static creation method.
  *
  * * No other code will replace the instantiated class
  */
@@ -84,26 +93,27 @@ class CustomSingleton {
 
 /**
  * ## Case (2) create [DartSingleton]. Solution for Dart language.
- *
- * * Creates one object
- *   with the ability updating the properties USING the referenced instance.
  */
 class DartSingleton {
   /**
-   *   (1) Add a private static field to the class that will contain a single object.
+   *   (1) Add a private static field to the class for storing the singleton
+   *       instance.
    */
   static DartSingleton _dartSingleton;
   String dartSingletonValue;
 
   /**
    * (2) Add factory constructor.
-   *     A factory constructor can be used in cases where the constructor doesn't
-   *     always create a new instance of its class, as a standard constructor must.
+   *
+   *     A factory constructor can be used in cases where the constructor
+   *     doesn't always create a new instance of its class, as a standard
+   *     constructor must.
    */
   factory DartSingleton(String value) {
     /**
-     * (3) Add "lazy initialization" (object creation the first time the method is
-     *     called).
+     * (3) Implement "lazy initialization" (object creation the first time
+     *     the method is called). It should create a new object on its first
+     *     call and put it into the static field.
      */
     if (_dartSingleton == null) {
       _dartSingleton = DartSingleton._(dartSingletonValue: value);
@@ -112,10 +122,12 @@ class DartSingleton {
   }
 
   /**
-   *   (4) Make the constructor of the class private.
+   *   (4) Make the constructor of the class private. The static method of the
+   *       class will still be able to call the constructor, but not the other
+   *       objects.
    *
-   * * Class constructor [DartSingleton._()] will be accessible only from its class.
-   *   However, you can call the private constructor in the same file.
+   * * Class constructor [DartSingleton._()] will be accessible only from its
+   *   class. However, you can call the private constructor in the same file.
    */
   DartSingleton._({this.dartSingletonValue}) {
     print("Lazy initialization (first initialization) do something....");

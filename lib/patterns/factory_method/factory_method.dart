@@ -2,33 +2,34 @@
  *
  * ## The essence of the pattern.
  *
- * * A factory method is an creational pattern that defines a common interface for
- *   creating objects in a superclass, allowing subclasses to change the type of objects
- *   they create.
+ * * Factory Method is a creational design pattern that provides an interface
+ *   for creating objects in a superclass, but allows subclasses to alter the
+ *   type of objects that will be created.
  *
  *
  * ## Applicability.
  *
- * * When you don't know in advance the types and dependencies of the objects your code
- *   should work with.
+ * * Use the Factory Method when you don’t know beforehand the exact types and
+ *   dependencies of the objects your code should work with.
  *
- *   The factory method separates the production code of products from the rest of the
- *   code that the products use.
- *   Thanks to this, the production code can be extended without touching the main one.
- *   So, to add support for a new product, you need to create a new subclass and define a
- *   factory method in it, returning an instance of the new product from there.
+ *   The Factory Method separates product construction code from the code that
+ *   actually uses the product. Therefore it’s easier to extend the product
+ *   construction code independently from the rest of the code.
  *
- * * When you want to conserve system resources by reusing already created objects instead
- *   of spawning new ones.
+ *   For example, to add a new product type to the app, you’ll only need to
+ *   create a new creator subclass and override the factory method in it.
  *
- *   This problem usually occurs when working with heavy resource-intensive objects,
- *   such as connecting to a database, file system, etc. Imagine how many actions
- *   you need to take to reuse existing objects
+ * * Use the Factory Method when you want to save system resources by reusing
+ *   existing objects instead of rebuilding them each time.
+ *
+ *   You often experience this need when dealing with large, resource-intensive
+ *   objects such as database connections, file systems, and network resources.
  *
  *
  * ## Implementation steps:
  *
- * (1) Bring all the products you create to a common interface.
+ * (1) Make all products follow the same interface. This interface should
+ *     declare methods that make sense in every product.
  */
 abstract class Button {
   FactoryMethod factoryMethod;
@@ -43,8 +44,8 @@ class FactoryMethod {
   FactoryMethod(this.width, this.height, this.color);
 
   /**
-   * (2) In the class that produces products, create an empty factory method.
-   *     Specify the generic product interface as the return type.
+   * (2) Add an empty factory method inside the creator class. The return type
+   *     of the method should match the common product interface.
    */
   @override
   String toString();
@@ -54,16 +55,17 @@ class WindowsButton extends Button {
   final FactoryMethod factoryMethod;
 
   /**
-   * (3) Then go through the class code and find all the areas that create products.
-   *     Alternately replace these sections with calls to the factory method, transferring
-   *     the code for creating various products into it.
+   * (3) In the creator’s code find all references to product constructors.
+   *     One by one, replace them with calls to the factory method, while
+   *     extracting the product creation code into the factory method.
    */
   WindowsButton({double width, double height, String color})
       : factoryMethod = FactoryMethod(width, height, color);
 
   /**
-   * (4) For each product type, create a subclass and override the factory method in it.
-   *     Move the code to create the corresponding product from the superclass there.
+   * (4) Now, create a set of creator subclasses for each type of product listed
+   *     in the factory method. Override the factory method in the subclasses and
+   *     extract the appropriate bits of construction code from the base method.
    */
   @override
   String toString() =>

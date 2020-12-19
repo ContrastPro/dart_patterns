@@ -2,44 +2,57 @@
  *
  * ## The essence of the pattern.
  *
- * * A decorator is a structural design pattern that allows you to dynamically
- *   add new functionality to objects by wrapping them in useful "wrappers".
+ * * Decorator is a structural design pattern that lets you attach new
+ *   behaviors to objects by placing these objects inside special wrapper
+ *   objects that contain the behaviors.
  *
  *
  * ## Analogy from life.
  *
- * * Any clothing is an analogue of the Decorator. By using the Decorator, you do not
- *   change the original class or create any child classes. So with clothes - putting on
- *   a sweater, you do not stop being yourself, but you get a new property - protection
- *   from the cold. You can go further and put on another decorator on top - a raincoat
- *   to protect yourself from the rain.
+ * * Wearing clothes is an example of using decorators. When you’re cold, you
+ *   wrap yourself in a sweater. If you’re still cold with a sweater, you can
+ *   wear a jacket on top. If it’s raining, you can put on a raincoat. All of
+ *   these garments “extend” your basic behavior but aren’t part of you, and
+ *   you can easily take off any piece of clothing whenever you don’t need it.
  *
  *
  * ## Applicability.
  *
- * * When you need to add responsibilities to objects on the fly, it's invisible to the
- *   code that uses them.
+ * * Use the Decorator pattern when you need to be able to assign extra
+ *   behaviors to objects at runtime without breaking the code that uses
+ *   these objects.
  *
- *   Objects are wrapped with additional behaviors. The wrappers and the objects themselves
- *   have the same interface, so clients don't care what to work with - with a regular
- *   data object or with a wrapped one.
+ *   The Decorator lets you structure your business logic into layers, create a
+ *   decorator for each layer and compose objects with various combinations of
+ *   this logic at runtime. The client code can treat all these objects in the
+ *   same way, since they all follow a common interface.
  *
- * * When you can't extend the responsibilities of an object through inheritance.
+ * * Use the pattern when it’s awkward or not possible to extend an object’s
+ *   behavior using inheritance.
  *
- *   Dart, have a final keyword that can block class inheritance. Such classes
- *   can only be extended using the Decorator.
+ *   Dart, have a final keyword that can block class inheritance. For a final
+ *   class, the only way to reuse the existing behavior would be to wrap the
+ *   class with your own wrapper, using the Decorator pattern.
  *
  *
  * ## Implementation steps:
  *
- * (1) Create a component interface that describes common methods for both the main
- *     component and its extensions.
+ * (1) Create a component interface that describes common methods for both the
+ *     main component and its extensions.
+ *
+ * (2) Figure out what methods are common to both the primary component and
+ *     the optional layers. Create a component interface and declare those
+ *     methods there.
  */
 abstract class Shape {
   String draw();
 }
+
 /**
- * (2) Create a concrete component class and put the main business logic in it.
+ * (3) Create a concrete component class and define the base behavior in it.
+ *
+ * It must have a field to store a reference to the nested component object.
+ * All methods of the base decorator must delegate action to the nested object.
  */
 class Square implements Shape {
   @override
@@ -50,10 +63,13 @@ class Triangle implements Shape {
   @override
   String draw() => "Triangle";
 }
+
 /**
- * (3) Create a base decorator class. It must have a field to store a reference to the
- *     nested component object. All methods of the base decorator must delegate action
- *     to the nested object.
+ * (4) Create a base decorator class. It should have a field for storing a
+ *     reference to a wrapped object. The field should be declared with the
+ *     component interface type to allow linking to concrete components
+ *     as well as decorators. The base decorator must delegate all work to the
+ *     wrapped object.
  */
 abstract class ShapeDecorator implements Shape {
   final Shape shape;
@@ -63,10 +79,13 @@ abstract class ShapeDecorator implements Shape {
   @override
   String draw();
 }
+
 /**
- * (4) Now create concrete decorator classes inheriting from the base decorator.
- *     The concrete decorator must perform its additional function, and then (or before)
- *     call the same operation on the wrapped object.
+ * (5) Make sure all classes implement the component interface.
+ *
+ * (6) reate concrete decorators by extending them from the base decorator.
+ *     A concrete decorator must execute its behavior before or after the call
+ *     to the parent method (which always delegates to the wrapped object).
  */
 class GreenShapeDecorator extends ShapeDecorator {
   GreenShapeDecorator(Shape shape) : super(shape);
