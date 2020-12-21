@@ -44,37 +44,62 @@
  *
  * ## Implementation steps:
  *
- * (1)
+ * (1) If there’s no pre-existing service interface, create one to make proxy
+ *     and service objects interchangeable. Extracting the interface from the
+ *     service class isn’t always possible, because you’d need to change all of
+ *     the service’s clients to use that interface. Plan B is to make the proxy
+ *     a subclass of the service class, and this way it’ll inherit the interface
+ *     of the service.
  */
-abstract class Subject {
-  void someMethod();
+abstract class CachedNetworkImage {
+  void loadImageFromInternet();
 }
 
-class ExpensiveClass implements Subject {
-  String name;
+/**
+ * (2) Create the proxy class. It should have a field for storing a reference
+ *     to the service. Usually, proxies create and manage the whole life cycle
+ *     of their services. On rare occasions, a service is passed to the proxy
+ *     via a constructor by the client.
+ */
+class Proxy implements CachedNetworkImage {
+  String _imageUrl;
 
-  ExpensiveClass(this.name);
+  /**
+   * Reference to the service object
+   */
+  ImageLoader _imageLoader;
 
-  void someMethod() {
-    print("someMethod of $name (an ExpensiveClass) is being called");
+  Proxy(this._imageUrl);
+
+  @override
+  void loadImageFromInternet() {
+    _subject().loadImageFromInternet();
+  }
+
+  /**
+   * (3) Implement the proxy methods according to their purposes. In
+   *     most cases, after doing some work, the proxy should delegate the
+   *     work to the service object.
+   */
+  ImageLoader _subject() {
+    if (_imageLoader != null) return _imageLoader;
+    /**
+     * We create a service object, the principle is similar to creating an
+     * object using the Singleton pattern
+     */
+    print("Creating an instance of ImageLoader for the Proxy...");
+    _imageLoader = ImageLoader(imageUrl: _imageUrl);
+    return _imageLoader;
   }
 }
 
-class Proxy implements Subject {
-  String _name;
-  ExpensiveClass _sub;
+class ImageLoader implements CachedNetworkImage {
+  String imageUrl;
 
-  Proxy(this._name);
+  ImageLoader({this.imageUrl});
 
-  void someMethod() {
-    print("someMethod of $_name (a Proxy) is being called");
-    _subject().someMethod();
-  }
-
-  ExpensiveClass _subject() {
-    if (_sub != null) return _sub;
-    print("Creating an instance of ExpensiveClass for the proxy...");
-    _sub = ExpensiveClass(_name);
-    return _sub;
+  @override
+  void loadImageFromInternet() {
+    print("Load image of $imageUrl (ImageLoader) from Internet");
   }
 }

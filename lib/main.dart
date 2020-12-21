@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'build_patterns/behavioral/behavioral.dart';
 import 'build_patterns/structural/structural.dart';
 import 'build_patterns/сreational/сreational.dart';
 import 'test/test.dart';
@@ -15,6 +16,8 @@ void runApp() {
       _buildCreational(index);
     } else if (index >= 7 && index <= 13) {
       _buildStructural(index);
+    } else if (index >= 14 && index <= 23) {
+      _buildBehavioral(index);
     } else if (index == 3141) {
       Test.customTest();
     } else {
@@ -135,6 +138,21 @@ void _buildStructural(int index) {
         patternName: 'Dart Proxy',
       );
       StructuralPattern.dartProxy();
+      break;
+  }
+}
+
+/**
+ * ## Behavioral patterns
+ */
+void _buildBehavioral(int index) {
+  switch (index) {
+    case 14:
+      _printPatternInfo(
+        patternClass: 'Behavioral patterns',
+        patternName: 'Dart Chain of Responsibility',
+      );
+      BehavioralPattern.dartChainOfResponsibility();
       break;
   }
 }

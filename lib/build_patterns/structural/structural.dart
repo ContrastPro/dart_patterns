@@ -6,6 +6,7 @@ import '../../patterns/composite/composite.dart';
 import '../../patterns/decorator/decorator.dart';
 import '../../patterns/facade/facade.dart';
 import '../../patterns/flyweight/flyweight.dart';
+import '../../patterns/proxy/proxy.dart';
 
 class StructuralPattern {
   /**
@@ -101,11 +102,32 @@ class StructuralPattern {
    * ## [Flyweight]
    */
   static void dartFlyweight() {
+    final List<ShapeFactory> shapes = [
+      ShapeFactory("rectangle"),
+      ShapeFactory("rectangle"),
+      ShapeFactory("rectangle"),
+      ShapeFactory("rectangle"),
 
+      ///
+      ShapeFactory("circle"),
+      ShapeFactory("circle"),
+      ShapeFactory("circle"),
+      ShapeFactory("circle"),
+    ];
+
+    for (int i = 0; i < shapes.length; i++) {
+      shapes[i].shape.render();
+    }
   }
 
   /**
    * ## [Proxy]
    */
-  static void dartProxy() {}
+  static void dartProxy() {
+    var proxy = Proxy("http//unsplash/image_1");
+    proxy.loadImageFromInternet();
+    print("\r\nNow if we call someMethod again...\r\n");
+    proxy.loadImageFromInternet();
+    print("\r\nWe reuse the instance we made above!");
+  }
 }
