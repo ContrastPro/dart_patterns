@@ -1,27 +1,32 @@
 void main() {
   _customSingleton();
   _dartSingleton();
+  _smallSingleton();
 }
 
 void _customSingleton() {
-  final singleton1 =
-      CustomSingleton.getInstance('First created Object of Custom Singleton');
-  final singleton2 =
-      CustomSingleton.getInstance('Second created Object of Custom Singleton');
-  print(singleton1.customSingletonValue);
-  print(singleton2.customSingletonValue);
-  print("Object is identical: ${identical(singleton1, singleton2)}\n");
+  final s1 = CustomSingleton.getInstance('First Object of Custom Singleton');
+  final s2 = CustomSingleton.getInstance('Second Object of Custom Singleton');
+  print(s1.customSingletonValue);
+  print(s2.customSingletonValue);
+  print("Object is identical: ${identical(s1, s2)}\n");
 }
 
 void _dartSingleton() {
-  final singleton1 = DartSingleton('First created Object of Dart Singleton');
-  final singleton2 = DartSingleton('Second created Object of Dart Singleton');
-  print(singleton1.dartSingletonValue);
-  print(singleton2.dartSingletonValue);
-  print("Object is identical: ${identical(singleton1, singleton2)}");
+  final s1 = DartSingleton('First Object of Dart Singleton');
+  final s2 = DartSingleton('Second Object of Dart Singleton');
+  print(s1.dartSingletonValue);
+  print(s2.dartSingletonValue);
+  print("Object is identical: ${identical(s1, s2)}\n");
 }
 
-// ## Case (1) create [CustomSingleton]. Standard solution for OOP languages.
+void _smallSingleton() {
+  final s1 = SmallSingleton('First Object of Small Singleton');
+  final s2 = SmallSingleton('Second Object of Small Singleton');
+  print(s1.smallSingletonValue);
+  print(s2.smallSingletonValue);
+  print("Object is identical: ${identical(s1, s2)}");
+}
 
 class CustomSingleton {
   static CustomSingleton _customSingleton;
@@ -29,17 +34,15 @@ class CustomSingleton {
 
   static CustomSingleton getInstance(String value) {
     if (_customSingleton == null) {
-      _customSingleton = CustomSingleton._(customSingletonValue: value);
+      _customSingleton = CustomSingleton._(value);
     }
     return _customSingleton;
   }
 
-  CustomSingleton._({this.customSingletonValue}) {
+  CustomSingleton._(this.customSingletonValue) {
     print("Lazy initialization (first initialization) do something....");
   }
 }
-
-// ## Case (2) create [DartSingleton]. Solution for Dart language.
 
 class DartSingleton {
   static DartSingleton _dartSingleton;
@@ -47,12 +50,26 @@ class DartSingleton {
 
   factory DartSingleton(String value) {
     if (_dartSingleton == null) {
-      _dartSingleton = DartSingleton._(dartSingletonValue: value);
+      _dartSingleton = DartSingleton._(value);
     }
     return _dartSingleton;
   }
 
-  DartSingleton._({this.dartSingletonValue}) {
+  DartSingleton._(this.dartSingletonValue) {
     print("Lazy initialization (first initialization) do something....");
   }
+}
+
+class SmallSingleton {
+  static SmallSingleton _smallSingleton;
+  String smallSingletonValue;
+
+  SmallSingleton._(String value) {
+    print("Lazy initialization (first initialization) do something....");
+    _smallSingleton = this;
+    smallSingletonValue = value;
+  }
+
+  factory SmallSingleton(String value) =>
+      _smallSingleton ?? SmallSingleton._(value);
 }

@@ -1,8 +1,3 @@
-void main() {
-  _customTest();
-}
+void main() => _customTest();
 
-void _customTest() {
-
-}
-
+void _customTest() {}
