@@ -6,7 +6,7 @@ void _dartComposite() {
     ..addItem(Item(price: 14.97, weight: 4.5))
     ..addItem(Item(price: 5.95, weight: 2.7));
 
-  final smallGiftBox = GiftBox()..addItem(Item(price: 12.68, weight: 2.7));
+  final smallGiftBox = GiftBox()..addItem(Item(price: 12.68, weight: 1.7));
 
   largeGiftBox.addItem(smallGiftBox);
 
@@ -18,7 +18,7 @@ class Item {
   final double price;
   final double weight;
 
-  const Item({this.price, this.weight});
+  Item({this.price, this.weight});
 }
 
 class GiftBox implements Item {

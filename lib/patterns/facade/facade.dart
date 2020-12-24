@@ -1,6 +1,4 @@
-void main() => _dartFacade();
-
-void _dartFacade() {
+void main() {
   PC pc = PC();
 
   pc.turnOn();
@@ -13,14 +11,14 @@ class PC {
   final _graphicsCard = GraphicsCard();
 
   void turnOn() {
-    print("\nPC turned ON\n\n");
+    print("PC turned ON\n");
     _motherboard.motherboardOn();
     _hardDrive.hardOn();
     _graphicsCard.cardOn();
   }
 
   void turnOff() {
-    print("\nPC turned OFF\n\n");
+    print("\n\nPC turned OFF\n");
     _motherboard.motherboardOff();
     _hardDrive.hardOff();
     _graphicsCard.cardOff();

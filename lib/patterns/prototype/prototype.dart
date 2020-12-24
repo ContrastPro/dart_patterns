@@ -29,11 +29,13 @@ abstract class Prototype {
 }
 
 class Circle implements Prototype {
+  @override
   String color;
+
   double radius;
   bool isClone = false;
 
-  Circle({this.radius = 30, this.color = "White"});
+  Circle({this.radius, this.color});
 
   Circle.createClone(Circle circle) {
     radius = circle.radius;

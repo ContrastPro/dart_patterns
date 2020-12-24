@@ -32,15 +32,15 @@ class CustomSingleton {
   static CustomSingleton _customSingleton;
   String customSingletonValue;
 
+  CustomSingleton._(this.customSingletonValue) {
+    print("Lazy initialization (first initialization) do something....");
+  }
+
   static CustomSingleton getInstance(String value) {
     if (_customSingleton == null) {
       _customSingleton = CustomSingleton._(value);
     }
     return _customSingleton;
-  }
-
-  CustomSingleton._(this.customSingletonValue) {
-    print("Lazy initialization (first initialization) do something....");
   }
 }
 
@@ -48,15 +48,15 @@ class DartSingleton {
   static DartSingleton _dartSingleton;
   String dartSingletonValue;
 
+  DartSingleton._(this.dartSingletonValue) {
+    print("Lazy initialization (first initialization) do something....");
+  }
+
   factory DartSingleton(String value) {
     if (_dartSingleton == null) {
       _dartSingleton = DartSingleton._(value);
     }
     return _dartSingleton;
-  }
-
-  DartSingleton._(this.dartSingletonValue) {
-    print("Lazy initialization (first initialization) do something....");
   }
 }
 
@@ -64,10 +64,9 @@ class SmallSingleton {
   static SmallSingleton _smallSingleton;
   String smallSingletonValue;
 
-  SmallSingleton._(String value) {
+  SmallSingleton._(this.smallSingletonValue) {
     print("Lazy initialization (first initialization) do something....");
     _smallSingleton = this;
-    smallSingletonValue = value;
   }
 
   factory SmallSingleton(String value) =>
