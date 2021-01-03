@@ -1,62 +1,114 @@
-void main() => _dartAbstractFactory();
-
-void _dartAbstractFactory() {
-  ApplicationStyle application = ApplicationStyle();
-  application.configureStyle("IOS");
+void main() {
+  ApplicationStyle.configureStyle(Platform.Android);
 }
 
+enum Platform { Android, IOS }
+
+class ApplicationStyle {
+  static void configureStyle(Platform platform) {
+    AbstractFactory abstractFactory;
+    Button button;
+    AppBar appBar;
+
+    switch (platform) {
+      case Platform.Android:
+        abstractFactory = AndroidFactory();
+        abstractFactory.currentPlatform = "Android";
+        break;
+      case Platform.IOS:
+        abstractFactory = IOSFactory();
+        abstractFactory.currentPlatform = "IOS";
+        break;
+    }
+    button = abstractFactory.createButton();
+    appBar = abstractFactory.createAppBar();
+
+    button.renderButton();
+    appBar.renderAppBar();
+  }
+}
+
+// Factory
+abstract class AbstractFactory {
+  String currentPlatform;
+
+  Button createButton();
+
+  AppBar createAppBar();
+}
+
+class AndroidFactory implements AbstractFactory {
+  @override
+  String currentPlatform;
+
+  @override
+  Button createButton() => AndroidButton(currentPlatform);
+
+  @override
+  AppBar createAppBar() => AndroidAppBar(currentPlatform);
+}
+
+class IOSFactory implements AbstractFactory {
+  @override
+  String currentPlatform;
+
+  @override
+  Button createButton() => IOSButton(currentPlatform);
+
+  @override
+  AppBar createAppBar() => IOSAppBar(currentPlatform);
+}
+
+// Button
 abstract class Button {
-  void paint();
+  void renderButton();
 }
 
-class WindowsButton implements Button {
-  void paint() {
-    print("You have created Windows Button");
+class AndroidButton implements Button {
+  final String _platform;
+
+  AndroidButton(this._platform);
+
+  @override
+  void renderButton() {
+    print("You have created $_platform Buttons");
   }
 }
 
 class IOSButton implements Button {
-  void paint() {
-    print("You have created IOS Button");
+  final String _platform;
+
+  IOSButton(this._platform);
+
+  @override
+  void renderButton() {
+    print("You have created $_platform Buttons");
   }
 }
 
-abstract class AbstractFactory {
-  Button createButton();
+// AppBar
+abstract class AppBar {
+  void renderAppBar();
 }
 
-class WindowsFactory implements AbstractFactory {
-  Button createButton() {
-    return WindowsButton();
+class AndroidAppBar implements AppBar {
+  final String _platform;
+
+  AndroidAppBar(this._platform);
+
+  @override
+  void renderAppBar() {
+    print("You have created $_platform AppBar");
   }
 }
 
-class IOSFactory implements AbstractFactory {
-  Button createButton() {
-    return IOSButton();
-  }
-}
+class IOSAppBar implements AppBar {
+  final String _platform;
 
-class ApplicationStyle {
-  AbstractFactory _abstractFactory;
-  Button _button;
+  IOSAppBar(this._platform);
 
-  void configureStyle(String currentSystem) {
-    switch (currentSystem.toLowerCase()) {
-      case "windows":
-        _abstractFactory = WindowsFactory();
-        break;
-      case "ios":
-        _abstractFactory = IOSFactory();
-        break;
-      default:
-        print("I only have two moods...");
-    }
-    _createStyle();
-  }
-
-  void _createStyle() {
-    _button = _abstractFactory.createButton();
-    _button.paint();
+  @override
+  void renderAppBar() {
+    print("You have created $_platform AppBar");
   }
 }

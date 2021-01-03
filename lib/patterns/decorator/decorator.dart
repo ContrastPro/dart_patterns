@@ -1,14 +1,10 @@
-void main() => _dartDecorator();
+void main() {
+  final Shape greenSquare = GreenShape(Square());
+  final Shape greenCircle = GreenShape(Circle());
 
-void _dartDecorator() {
-  final square = Square();
-  print(square.draw());
-
-  final greenSquare = GreenShapeDecorator(square);
   print(greenSquare.draw());
+  print(greenCircle.draw());
 
-  final blueGreenSquare = BlueShapeDecorator(greenSquare);
-  print(blueGreenSquare.draw());
 }
 
 abstract class Shape {
@@ -20,9 +16,9 @@ class Square implements Shape {
   String draw() => "Square";
 }
 
-class Triangle implements Shape {
+class Circle implements Shape {
   @override
-  String draw() => "Triangle";
+  String draw() => "Circle";
 }
 
 abstract class ShapeDecorator implements Shape {
@@ -31,19 +27,12 @@ abstract class ShapeDecorator implements Shape {
   ShapeDecorator(this.shape);
 
   @override
-  String draw();
+  String draw() => shape.draw();
 }
 
-class GreenShapeDecorator extends ShapeDecorator {
-  GreenShapeDecorator(Shape shape) : super(shape);
+class GreenShape extends ShapeDecorator {
+  GreenShape(Shape shape) : super(shape);
 
   @override
   String draw() => "Green ${shape.draw()}";
-}
-
-class BlueShapeDecorator extends ShapeDecorator {
-  BlueShapeDecorator(Shape shape) : super(shape);
-
-  @override
-  String draw() => "Blue ${shape.draw()}";
 }

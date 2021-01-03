@@ -1,66 +1,65 @@
-void main() => _dartFactoryMethod();
+void main() {
+  ButtonStyle.configureStyle(Platform.Android);
+}
 
-void _dartFactoryMethod() {
-  final windowsButton = FloatingActionButton.extended(OperationSystem.windows);
-  final iosButton = FloatingActionButton.extended(OperationSystem.ios);
+enum Platform { Android, IOS }
 
-  print("Created $windowsButton.");
-  print("Created $iosButton.");
+class ButtonStyle {
+  static void configureStyle(Platform platform) {
+    ButtonFactory buttonFactory;
+    Button button;
+
+    switch (platform) {
+      case Platform.Android:
+        buttonFactory = AndroidButtonFactory();
+        buttonFactory.currentPlatform = "Android";
+        break;
+      case Platform.IOS:
+        buttonFactory = IOSButtonFactory();
+        buttonFactory.currentPlatform = "IOS";
+        break;
+    }
+    button = buttonFactory.createButton();
+    button.render();
+  }
+}
+
+abstract class ButtonFactory {
+  String currentPlatform;
+
+  void printInfo() => print('Hello');
+
+  Button createButton();
+}
+
+class AndroidButtonFactory extends ButtonFactory {
+  @override
+  Button createButton() => AndroidButton(currentPlatform);
+}
+
+class IOSButtonFactory extends ButtonFactory {
+  @override
+  Button createButton() => IOSButton(currentPlatform);
 }
 
 abstract class Button {
-  FactoryMethod factoryMethod;
-  String currentPlatform;
+  void render();
 }
 
-class FactoryMethod {
-  final double width;
-  final double height;
-  final String color;
+class AndroidButton implements Button {
+  final String _platform;
 
-  FactoryMethod(this.width, this.height, this.color);
+  AndroidButton(this._platform);
 
   @override
-  String toString();
+  void render() => print("FAB button for $_platform, render on the screen");
 }
 
-class WindowsButton extends Button {
-  final FactoryMethod factoryMethod;
+class IOSButton implements Button {
+  final String _platform;
 
-  WindowsButton({double width, double height, String color})
-      : factoryMethod = FactoryMethod(width, height, color);
+  IOSButton(this._platform);
 
   @override
-  String toString() =>
-      "FAB for $currentPlatform, Color: ${factoryMethod.color}";
-}
-
-class IOSButton extends Button {
-  final FactoryMethod factoryMethod;
-
-  IOSButton({double width, double height, String color})
-      : factoryMethod = FactoryMethod(width, height, color);
-
-  @override
-  String toString() =>
-      "FAB for $currentPlatform, Color: ${factoryMethod.color}";
-}
-
-enum OperationSystem { windows, ios }
-
-class FloatingActionButton {
-  static Button extended(OperationSystem operationSystem) {
-    Button button;
-    switch (operationSystem) {
-      case OperationSystem.windows:
-        button = WindowsButton(width: 10, height: 20, color: "Blue");
-        button.currentPlatform = "Windows";
-        break;
-      case OperationSystem.ios:
-        button = IOSButton(width: 20, height: 30, color: "White");
-        button.currentPlatform = "IOS";
-        break;
-    }
-    return button;
-  }
+  void render() => print("FAB button for $_platform, render on the screen");
 }

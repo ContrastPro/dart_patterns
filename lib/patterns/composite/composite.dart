@@ -1,12 +1,10 @@
-void main() => _dartComposite();
-
-void _dartComposite() {
+void main() {
   final largeGiftBox = GiftBox()
     ..addItem(Item(price: 33.65, weight: 3.3))
     ..addItem(Item(price: 14.97, weight: 4.5))
     ..addItem(Item(price: 5.95, weight: 2.7));
 
-  final smallGiftBox = GiftBox()..addItem(Item(price: 12.68, weight: 1.7));
+  final GiftBox smallGiftBox = GiftBox()..addItem(Item(price: 12.68, weight: 1.7));
 
   largeGiftBox.addItem(smallGiftBox);
 

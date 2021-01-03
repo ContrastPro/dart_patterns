@@ -1,9 +1,7 @@
-void main() => _dartPrototype();
-
-void _dartPrototype() {
-  final originalCircle = Circle(radius: 11, color: "Black");
-  final cloneCircle = originalCircle.clone();
-  final someOtherCircle = Circle(radius: 55, color: "White");
+void main() {
+  final Circle originalCircle = Circle(radius: 11, color: "Black");
+  final Circle cloneCircle = originalCircle.clone();
+  final Circle someOtherCircle = Circle(radius: 55, color: "White");
 
   print(
     "Original circle is: ${originalCircle.cloneStatus},"
