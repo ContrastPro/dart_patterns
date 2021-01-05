@@ -1,5 +1,5 @@
 void main() {
-  ApplicationStyle.configureStyle(Platform.Android);
+  ApplicationStyle.configureStyle(Platform.IOS);
 }
 
 enum Platform { Android, IOS }
