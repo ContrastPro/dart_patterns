@@ -1,13 +1,13 @@
-import 'bad_example.dart';
-import 'best_example.dart';
-import 'complex_example.dart';
-import 'custom_example.dart';
-import 'good_example.dart';
+import 'bad_example_builder.dart';
+import 'best_example_builder.dart';
+import 'complex_example_builder.dart';
+import 'custom_example_builder.dart';
+import 'good_example_builder.dart';
 
 void main() {
-  //builderBad();
+  builderBad();
   //builderGood();
   //builderBest();
-  customBuilder();
+  //customBuilder();
   //complexBuilder();
 }

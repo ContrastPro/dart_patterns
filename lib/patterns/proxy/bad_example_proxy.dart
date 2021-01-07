@@ -1,12 +1,9 @@
-import 'bad_example_proxy.dart';
-
-void main() {
-  bad_example_proxy();
-  /*final NetworkImage networkImage = Proxy(
+void bad_example_proxy() {
+  final NetworkImage networkImage = ImageLoader(
     imageUrl: "http//unsplash/image_1",
   );
 
-  networkImage.displayImage();*/
+  //networkImage.displayImage();
 }
 
 abstract class NetworkImage {
@@ -29,21 +26,5 @@ class ImageLoader implements NetworkImage {
   @override
   void displayImage() {
     print("Image $_imageUrl display on screen");
-  }
-}
-
-class Proxy implements NetworkImage {
-  final String _imageUrl;
-
-  ImageLoader _imageLoader;
-
-  Proxy({String imageUrl}) : _imageUrl = imageUrl;
-
-  @override
-  void displayImage() {
-    if (_imageLoader == null) {
-      _imageLoader = ImageLoader(imageUrl: _imageUrl);
-    }
-    _imageLoader.displayImage();
   }
 }

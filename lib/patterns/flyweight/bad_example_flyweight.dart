@@ -1,11 +1,7 @@
 import 'dart:math';
 
-import 'bad_example_flyweight.dart';
-
-void main() {
-  bad_example_flyweight();
-
-  /*//
+void bad_example_flyweight() {
+  //
   putSteelFurnace();
   putSteelFurnace();
 
@@ -13,17 +9,17 @@ void main() {
   putElectricFurnace();
   putElectricFurnace();
   putElectricFurnace();
-  putElectricFurnace();*/
+  putElectricFurnace();
 }
 
 void putSteelFurnace() {
-  final FurnaceFactory furnaceFactory = FurnaceFactory(furnace: "Steel");
-  furnaceFactory.furnace.render(Random().nextInt(999), Random().nextInt(999));
+  final Furnace furnace = SteelFurnace(furnace: "Steel");
+  furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
 void putElectricFurnace() {
-  final FurnaceFactory furnaceFactory = FurnaceFactory(furnace: "Electric");
-  furnaceFactory.furnace.render(Random().nextInt(999), Random().nextInt(999));
+  final Furnace furnace = ElectricFurnace(furnace: "Electric");
+  furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
 //
@@ -58,27 +54,5 @@ class ElectricFurnace implements Furnace {
   void render(int x, int y) {
     print(
         "$_furnace Furnace with [$_texture] render on coordinates X: $x, Y: $y");
-  }
-}
-
-class FurnaceFactory {
-  static final Map<String, Furnace> _furnaceCollection = {};
-
-  final Furnace furnace;
-
-  FurnaceFactory({String furnace}) : furnace = _getFurnace(furnace);
-
-  static Furnace _getFurnace(String furnaceType) {
-    switch (furnaceType) {
-      case "Steel":
-        return _furnaceCollection.putIfAbsent(furnaceType, () {
-          return SteelFurnace(furnace: furnaceType);
-        });
-        break;
-      default:
-        return _furnaceCollection.putIfAbsent(furnaceType, () {
-          return ElectricFurnace(furnace: furnaceType);
-        });
-    }
   }
 }

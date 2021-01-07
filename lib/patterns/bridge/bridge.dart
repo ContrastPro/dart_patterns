@@ -1,50 +1,52 @@
 void main() {
-  /*final Framework flutterIOS = FlutterEngine(flutterSDK: FlutterIOS());
-  flutterIOS.runApp();*/
+  final MaterialDesign materialDesign = AndroidDesign(widget: Button());
+  materialDesign.setDesign();
 
-  List<Framework> frameworkList = [
-    FlutterEngine(flutterSDK: FlutterWindows()),
-    FlutterEngine(flutterSDK: FlutterIOS()),
+  /*List<MaterialDesign> componentList = [
+    AndroidDesign(widget: Button()),
+    IOSDesign(widget: Button()),
   ];
 
-  frameworkList.forEach((framework) {
-    framework.runApp();
-  });
+  componentList.forEach((component) {
+    component.setDesign();
+  });*/
 }
 
 // Abstraction
-abstract class Framework {
-  FlutterSDK flutterSDK;
+abstract class MaterialDesign {
+  Widget widget;
 
-  void runApp();
+  MaterialDesign(this.widget);
+
+  void setDesign();
 }
 
-class FlutterEngine extends Framework {
-  FlutterSDK flutterSDK;
-
-  FlutterEngine({this.flutterSDK});
+class AndroidDesign extends MaterialDesign {
+  AndroidDesign({Widget widget}) : super(widget);
 
   @override
-  void runApp() {
-    this.flutterSDK.buildApp();
+  void setDesign() {
+    widget.render(design: "Android design");
+  }
+}
+
+class IOSDesign extends MaterialDesign {
+  IOSDesign({Widget widget}) : super(widget);
+
+  @override
+  void setDesign() {
+    widget.render(design: "IOS design");
   }
 }
 
 // Implementation
-abstract class FlutterSDK {
-  void buildApp();
+abstract class Widget {
+  void render({String design});
 }
 
-class FlutterWindows implements FlutterSDK {
+class Button implements Widget {
   @override
-  void buildApp() {
-    print("Flutter app build for Windows");
-  }
-}
-
-class FlutterIOS implements FlutterSDK {
-  @override
-  void buildApp() {
-    print("Flutter app build for IOS");
+  void render({String design}) {
+    print("Button render with $design");
   }
 }
