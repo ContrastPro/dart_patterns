@@ -1,4 +1,4 @@
-void bad_example_proxy() {
+void badExampleProxy() {
   final NetworkImage networkImage = ImageLoader(
     imageUrl: "http//unsplash/image_1",
   );

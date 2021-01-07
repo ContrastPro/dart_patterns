@@ -1,6 +1,6 @@
 import 'dart:math';
 
-void bad_example_flyweight() {
+void badExampleFlyweight() {
   //
   putSteelFurnace();
   putSteelFurnace();

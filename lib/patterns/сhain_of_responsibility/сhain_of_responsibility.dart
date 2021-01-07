@@ -1,71 +1,50 @@
-void main() => _dartChainOfResponsibility();
+void main() {
+  final Logger consoleLogger = ConsoleLogger();
+  final Logger fileLogger = FileLogger();
 
-void _dartChainOfResponsibility() {
-  Notifier infoNotifier = InfoNotifier(Priority.INFO);
-  Notifier debugNotifier = DebugNotifier(Priority.DEBUG);
-  Notifier errorNotifier = ErrorNotifier(Priority.ERROR);
+  consoleLogger.setNextLoggerInChain(fileLogger);
 
-  infoNotifier.notifier = debugNotifier;
-  debugNotifier.notifier = errorNotifier;
-
-  infoNotifier.notifierManager("Everything is OK", Priority.INFO);
-  print('\n');
-  infoNotifier.notifierManager("App was build successful", Priority.DEBUG);
-  print('\n');
-  infoNotifier.notifierManager("Something went WRONG", Priority.ERROR);
+  consoleLogger.handleRequest(1);
+  consoleLogger.handleRequest(2);
 }
 
-abstract class Notifier {
-  int _priority;
-  Notifier _notifier;
+abstract class Logger {
+  // usually # protected
+  Logger nextLogger;
 
-  Notifier(this._priority);
-
-  set notifier(Notifier nextNotifier) {
-    _notifier = nextNotifier;
+  void setNextLoggerInChain(Logger logger) {
+    nextLogger = logger;
   }
 
-  void notifierManager(String message, int level) {
-    if (level >= _priority) {
-      write(message);
+  /*void print(int number) {
+    handleRequest(number);
+
+    if (nextLogger != null) {
+      nextLogger.print(number);
     }
-    if (_notifier != null) {
-      _notifier.notifierManager(message, level);
+  }*/
+
+  void handleRequest(int number);
+}
+
+class ConsoleLogger extends Logger {
+  @override
+  void handleRequest(int number) {
+    if (number == 1) {
+      print("[CONSOLE] $number");
+    } else if (nextLogger != null) {
+      nextLogger.handleRequest(number);
     }
   }
-
-  void write(String message);
 }
 
-class InfoNotifier extends Notifier {
-  InfoNotifier(int priority) : super(priority);
-
+class FileLogger extends Logger {
   @override
-  void write(String message) {
-    print("[INFO]: $message");
+  void handleRequest(int number) {
+    if (number == 2) {
+      print("[FILE] $number");
+    } else if (nextLogger != null) {
+      nextLogger.handleRequest(number);
+    }
   }
-}
-
-class DebugNotifier extends Notifier {
-  DebugNotifier(int priority) : super(priority);
-
-  @override
-  void write(String message) {
-    print("[DEBUG]: $message");
-  }
-}
-
-class ErrorNotifier extends Notifier {
-  ErrorNotifier(int priority) : super(priority);
-
-  @override
-  void write(String message) {
-    print("[ERROR]: $message");
-  }
-}
-
-class Priority {
-  static const int INFO = 1;
-  static const int DEBUG = 2;
-  static const int ERROR = 3;
 }

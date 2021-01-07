@@ -3,7 +3,7 @@ import 'dart:math';
 import 'bad_example_flyweight.dart';
 
 void main() {
-  bad_example_flyweight();
+  badExampleFlyweight();
 
   /*//
   putSteelFurnace();
