@@ -19,11 +19,15 @@ abstract class Logger {
   /*void print(int number) {
     handleRequest(number);
 
+    // будет вынужденна пройти по всей цепочке даже если
+    // в этом нет необходимости
     if (nextLogger != null) {
       nextLogger.print(number);
     }
   }*/
 
+  // можно передавать ссылку на следующий logger
+  // через параметры
   void handleRequest(int number);
 }
 
