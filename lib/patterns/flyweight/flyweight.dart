@@ -1,28 +1,37 @@
 import 'dart:math';
 
 import 'bad_example_flyweight.dart';
+import 'memory_controller.dart';
 
 void main() {
-  badExampleFlyweight();
+  MemoryController memoryController = MemoryController();
 
-  /*//
-  putSteelFurnace();
-  putSteelFurnace();
+  badExampleFlyweight(memoryController);
 
-  //
-  putElectricFurnace();
-  putElectricFurnace();
-  putElectricFurnace();
-  putElectricFurnace();*/
+  /*// Steel
+  putSteelFurnace(memoryController);
+  putSteelFurnace(memoryController);
+
+  // Electric
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);*/
 }
 
-void putSteelFurnace() {
-  final FurnaceFactory furnaceFactory = FurnaceFactory(furnace: "Steel");
+void putSteelFurnace(MemoryController memoryController) {
+  final FurnaceFactory furnaceFactory = FurnaceFactory(
+    furnace: "Steel",
+    controller: memoryController,
+  );
   furnaceFactory.furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
-void putElectricFurnace() {
-  final FurnaceFactory furnaceFactory = FurnaceFactory(furnace: "Electric");
+void putElectricFurnace(MemoryController memoryController) {
+  final FurnaceFactory furnaceFactory = FurnaceFactory(
+    furnace: "Electric",
+    controller: memoryController,
+  );
   furnaceFactory.furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
@@ -35,8 +44,10 @@ class SteelFurnace implements Furnace {
   final String _furnace;
   static const String _texture = "texture 3000px";
 
-  SteelFurnace({String furnace}) : _furnace = furnace {
+  SteelFurnace({String furnace, MemoryController controller})
+      : _furnace = furnace {
     print("\nCreate ${furnace.toUpperCase()} Furnace");
+    controller.addToMemory(3);
   }
 
   @override
@@ -50,8 +61,10 @@ class ElectricFurnace implements Furnace {
   final String _furnace;
   static const String _texture = "texture 5000px";
 
-  ElectricFurnace({String furnace}) : _furnace = furnace {
+  ElectricFurnace({String furnace, MemoryController controller})
+      : _furnace = furnace {
     print("\nCreate ${furnace.toUpperCase()} Furnace");
+    controller.addToMemory(5);
   }
 
   @override
@@ -66,18 +79,19 @@ class FurnaceFactory {
 
   final Furnace furnace;
 
-  FurnaceFactory({String furnace}) : furnace = _getFurnace(furnace);
+  FurnaceFactory({String furnace, MemoryController controller})
+      : furnace = _getFurnace(furnace, controller);
 
-  static Furnace _getFurnace(String furnaceType) {
+  static Furnace _getFurnace(String furnaceType, MemoryController controller) {
     switch (furnaceType) {
       case "Steel":
         return _furnaceCollection.putIfAbsent(furnaceType, () {
-          return SteelFurnace(furnace: furnaceType);
+          return SteelFurnace(furnace: furnaceType, controller: controller);
         });
         break;
       default:
         return _furnaceCollection.putIfAbsent(furnaceType, () {
-          return ElectricFurnace(furnace: furnaceType);
+          return ElectricFurnace(furnace: furnaceType, controller: controller);
         });
     }
   }
