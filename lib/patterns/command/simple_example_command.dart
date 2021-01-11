@@ -5,7 +5,7 @@ void simpleExampleCommand() {
 
   final Program eveningProgram = Program();
   eveningProgram.addCommand(switchOnCommand);
-  eveningProgram.start();
+  eveningProgram.startProgram();
 }
 
 // Receiver Приёмник команд
@@ -22,13 +22,13 @@ abstract class Command {
 
 // Concrete command
 class SwitchOnCommand implements Command {
-  LightOutside lightOutside;
+  final LightOutside _lightOutside;
 
-  SwitchOnCommand(this.lightOutside);
+  SwitchOnCommand(this._lightOutside);
 
   @override
   void execute() {
-    lightOutside.switchOn();
+    _lightOutside.switchOn();
   }
 }
 
@@ -42,7 +42,7 @@ class Program {
     }
   }
 
-  void start() {
+  void startProgram() {
     _listOfCommand.forEach((element) {
       element.execute();
     });
