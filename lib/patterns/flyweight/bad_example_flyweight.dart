@@ -1,24 +1,33 @@
 import 'dart:math';
 
-void badExampleFlyweight() {
-  //
-  putSteelFurnace();
-  putSteelFurnace();
+import 'memory_controller.dart';
 
-  //
-  putElectricFurnace();
-  putElectricFurnace();
-  putElectricFurnace();
-  putElectricFurnace();
+void badExampleFlyweight(MemoryController memoryController) {
+  // Steel
+  putSteelFurnace(memoryController);
+  putSteelFurnace(memoryController);
+
+  // Electric
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);
+  putElectricFurnace(memoryController);
 }
 
-void putSteelFurnace() {
-  final Furnace furnace = SteelFurnace(furnace: "Steel");
+void putSteelFurnace(MemoryController memoryController) {
+  final Furnace furnace = SteelFurnace(
+    furnace: "Steel",
+    controller: memoryController,
+  );
   furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
-void putElectricFurnace() {
-  final Furnace furnace = ElectricFurnace(furnace: "Electric");
+void putElectricFurnace(MemoryController memoryController) {
+  final Furnace furnace = ElectricFurnace(
+    furnace: "Electric",
+    controller: memoryController,
+  );
+
   furnace.render(Random().nextInt(999), Random().nextInt(999));
 }
 
@@ -31,8 +40,10 @@ class SteelFurnace implements Furnace {
   final String _furnace;
   static const String _texture = "texture 3000px";
 
-  SteelFurnace({String furnace}) : _furnace = furnace {
+  SteelFurnace({String furnace, MemoryController controller})
+      : _furnace = furnace {
     print("\nCreate ${furnace.toUpperCase()} Furnace");
+    controller.addToMemory(3);
   }
 
   @override
@@ -46,8 +57,10 @@ class ElectricFurnace implements Furnace {
   final String _furnace;
   static const String _texture = "texture 5000px";
 
-  ElectricFurnace({String furnace}) : _furnace = furnace {
+  ElectricFurnace({String furnace, MemoryController controller})
+      : _furnace = furnace {
     print("\nCreate ${furnace.toUpperCase()} Furnace");
+    controller.addToMemory(5);
   }
 
   @override

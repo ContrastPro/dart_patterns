@@ -1,12 +1,12 @@
 import 'bad_example_proxy.dart';
 
 void main() {
-  badExampleProxy();
-  /*final NetworkImage networkImage = Proxy(
+  //badExampleProxy();
+  final NetworkImage networkImage = Proxy(
     imageUrl: "http//unsplash/image_1",
   );
 
-  networkImage.displayImage();*/
+  //networkImage.displayImage();
 }
 
 abstract class NetworkImage {

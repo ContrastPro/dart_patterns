@@ -4,7 +4,7 @@ void main() {
 
   /*List<MaterialDesign> componentList = [
     AndroidDesign(widget: Button()),
-    IOSDesign(widget: Button()),
+    IOSDesign(widget: AppBar()),
   ];
 
   componentList.forEach((component) {
@@ -48,5 +48,12 @@ class Button implements Widget {
   @override
   void render({String design}) {
     print("Button render with $design");
+  }
+}
+
+class AppBar implements Widget {
+  @override
+  void render({String design}) {
+    print("AppBar render with $design");
   }
 }
