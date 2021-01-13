@@ -10,15 +10,8 @@ void dartIterator() {
   final DestinationIterator iterator =
       DestinationIterator(list: destinationList);
 
-  final DestinationIterator2 iterator2 =
-      DestinationIterator2(list: destinationList);
-
   while (iterator.moveNext()) {
     print(iterator.current.name);
-  }
-  print('\n');
-  while (iterator2.moveNext()) {
-    print(iterator2.current.name);
   }
 }
 
@@ -52,21 +45,4 @@ class DestinationIterator implements Iterator {
 
   @override
   Destination get current => _destinations[_index++];
-}
-
-class DestinationIterator2 implements Iterator {
-  final List<Destination> _destinations;
-  int _index = 0;
-
-  DestinationIterator2({DestinationList list})
-      : _destinations = list.destinations,
-        _index = list.destinations.length - 1;
-
-  @override
-  bool moveNext() {
-    return _index >= 0;
-  }
-
-  @override
-  Destination get current => _destinations[_index--];
 }

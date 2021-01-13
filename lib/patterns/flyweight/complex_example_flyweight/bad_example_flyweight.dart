@@ -1,6 +1,6 @@
 import 'dart:math';
 
-import 'memory_controller.dart';
+import '../memory_controller.dart';
 
 void badExampleFlyweight(MemoryController memoryController) {
   // Steel

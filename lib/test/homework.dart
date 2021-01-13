@@ -10,14 +10,6 @@ void main() {
       print(identical(singleton.listSingleton[i], singleton.listSingleton[j]));
     }
   }
-
-  /*final List list = [1, 2, 3, 4];
-
-  for (int i = 0; i < list.length; ++i) {
-    for (int j = i + 1; j < list.length; ++j) {
-      print("${list[i]} == ${list[j]} ${identical(list[i], list[j])}");
-    }
-  }*/
 }
 
 class Singleton {
