@@ -1,8 +1,11 @@
 void simpleExampleCommand() {
   final LightOutside lightOutside = LightOutside();
 
-  final SwitchOnCommand switchOnCommand = SwitchOnCommand(lightOutside);
+  final Command switchOnCommand = SwitchOnCommand(lightOutside);
 
+  // Мы не можем групировать функции, но можем групировать объекты
+  // если нам нужно вызвать только определённые методы у определённых оъектах
+  // мы инкапсулируем методы объекта путём создания оъектов для каждого метода
   final Program eveningProgram = Program();
   eveningProgram.addCommand(switchOnCommand);
   eveningProgram.startProgram();
