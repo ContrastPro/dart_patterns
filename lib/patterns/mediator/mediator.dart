@@ -1,5 +1,10 @@
+import 'mediator_example_real_life.dart';
+
 void main() {
-  GroupTelegramChat groupTelegramChat = GroupTelegramChat();
+  mediatorExampleRealLife();
+
+
+  /*GroupTelegramChat groupTelegramChat = GroupTelegramChat();
 
   User admin = AdminUser(groupTelegramChat, "Gleb");
   User commonUser1 = CommonUser(groupTelegramChat, "Brad");
@@ -11,7 +16,7 @@ void main() {
     ..addUserToGroupChat(commonUser1)
     ..addUserToGroupChat(commonUser2);
 
-  commonUser1.sendMessage("Hello");
+  commonUser1.sendMessage("Hello");*/
 }
 
 //Colleague
@@ -22,6 +27,8 @@ abstract class User {
 }
 
 class CommonUser implements User {
+
+  // Можем вынести переменные и метод sendMessage() в родительский класс
   final TelegramChat _telegramChat;
   final String _name;
 
@@ -64,7 +71,13 @@ class GroupTelegramChat implements TelegramChat {
   User _admin;
   List<User> _usersList = List<User>();
 
-  set admin(User value) => _admin = value;
+  set admin(User user) {
+    if (user is AdminUser) {
+      _admin = user;
+    } else {
+      throw Exception("Недостаточно прав");
+    }
+  }
 
   void addUserToGroupChat(User user) {
     _usersList.add(user);
