@@ -22,6 +22,7 @@ void mementoSimpleExample() {
   print(dartPatterns);
 }
 
+// Originator Создатель
 class DartPatterns {
   String _commitHash;
   List<String> _filesList = List<String>();
@@ -48,6 +49,7 @@ class DartPatterns {
   }
 }
 
+// Memento Хранитель
 class Commit {
   String _commitHash;
   List<String> _fileList = List<String>();
@@ -62,6 +64,7 @@ class Commit {
   }
 }
 
+// Caretaker Опекун
 class GitHub {
   Commit _commit;
 
