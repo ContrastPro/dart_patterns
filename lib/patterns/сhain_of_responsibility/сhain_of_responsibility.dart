@@ -1,23 +1,23 @@
 import 'bad_example_chain_of_responsibility.dart';
 
 void main() {
-  badExampleChainOfResponsibility();
+  //badExampleChainOfResponsibility();
 
-  /*final Logger firstLogger = FirstLogger();
+  final Logger firstLogger = FirstLogger();
   final Logger secondLogger = SecondLogger();
   final Logger thirdLogger = ThirdLogger();
 
   firstLogger.setNextLoggerInChain(secondLogger);
   secondLogger.setNextLoggerInChain(thirdLogger);
 
-  firstLogger.handleRequest(Translate.EnglishToChinese);*/
+  firstLogger.handleRequest(Translate.ChineseToEnglish);
 }
 
 enum Translate {
-  EnglishToGerman,
-  EnglishToChinese,
-  EnglishToRussian,
-  EnglishToJapanese,
+  GermanToEnglish,
+  ChineseToEnglish,
+  RussianToEnglish,
+  JapaneseToEnglish,
 }
 
 abstract class Logger {
@@ -35,7 +35,7 @@ abstract class Logger {
 class FirstLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToGerman) {
+    if (translate == Translate.GermanToEnglish) {
       print("[FIRST LOGGER] Translate English to German");
     } else if (nextLogger != null) {
       nextLogger.handleRequest(translate);
@@ -46,7 +46,7 @@ class FirstLogger extends Logger {
 class SecondLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToChinese) {
+    if (translate == Translate.ChineseToEnglish) {
       print("[SECOND LOGGER] Translate English to Chinese");
     } else if (nextLogger != null) {
       nextLogger.handleRequest(translate);
@@ -57,7 +57,7 @@ class SecondLogger extends Logger {
 class ThirdLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToRussian) {
+    if (translate == Translate.RussianToEnglish) {
       print("[THIRD LOGGER] Translate English to Russian");
     } else if (nextLogger != null) {
       nextLogger.handleRequest(translate);

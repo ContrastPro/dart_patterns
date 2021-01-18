@@ -1,42 +1,44 @@
 void dartIterator() {
   final DestinationList destinationList = DestinationList(
     list: [
-      Destination(name: 'Destination 1'),
-      Destination(name: 'Destination 2'),
-      Destination(name: 'Destination 3'),
+      'Destination 1',
+      'Destination 2',
+      'Destination 3',
+      'Destination 4',
+      'Destination 5',
     ],
   );
 
-  final DestinationIterator iterator =
-      DestinationIterator(list: destinationList);
+  print("\n*** Descending iteration ***\n");
+  final DownwardIteration downwardIteration =
+      DownwardIteration(list: destinationList);
 
-  while (iterator.moveNext()) {
-    print(iterator.current.name);
+  while (downwardIteration.moveNext()) {
+    print(downwardIteration.current);
+  }
+
+  print("\n*** Ascending iteration ***\n");
+  final AscendingIteration ascendingIteration =
+      AscendingIteration(list: destinationList);
+
+  while (ascendingIteration.moveNext()) {
+    print(ascendingIteration.current);
   }
 }
 
-class Destination {
-  final String _name;
-
-  String get name => _name;
-
-  const Destination({String name}) : _name = name;
-}
-
 class DestinationList {
-  final List<Destination> _destinations;
+  final List<String> _destinations;
 
-  List<Destination> get destinations => _destinations;
+  List<String> get destinations => _destinations;
 
-  const DestinationList({List<Destination> list}) : _destinations = list;
+  const DestinationList({List<String> list}) : _destinations = list;
 }
 
-class DestinationIterator implements Iterator {
-  final List<Destination> _destinations;
+class DownwardIteration implements Iterator {
+  final List<String> _destinations;
   int _index = 0;
 
-  DestinationIterator({DestinationList list})
-      : _destinations = list.destinations;
+  DownwardIteration({DestinationList list}) : _destinations = list.destinations;
 
   @override
   bool moveNext() {
@@ -44,5 +46,22 @@ class DestinationIterator implements Iterator {
   }
 
   @override
-  Destination get current => _destinations[_index++];
+  String get current => _destinations[_index++];
+}
+
+class AscendingIteration implements Iterator {
+  final List<String> _destinations;
+  int _index;
+
+  AscendingIteration({DestinationList list})
+      : _destinations = list.destinations,
+        _index = list.destinations.length - 1;
+
+  @override
+  bool moveNext() {
+    return _index >= 0;
+  }
+
+  @override
+  String get current => _destinations[_index--];
 }

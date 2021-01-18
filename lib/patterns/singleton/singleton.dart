@@ -29,8 +29,6 @@ void _smallSingleton() {
 }
 
 class CustomSingleton {
-
-
   static CustomSingleton _customSingleton;
   String customSingletonValue;
 
@@ -45,10 +43,6 @@ class CustomSingleton {
     return _customSingleton;
   }
 }
-
-
-
-
 
 class DartSingleton {
   static DartSingleton _dartSingleton;
@@ -65,9 +59,6 @@ class DartSingleton {
     return _dartSingleton;
   }
 }
-
-
-
 
 class SmallSingleton {
   static SmallSingleton _smallSingleton;

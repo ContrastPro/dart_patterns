@@ -1,10 +1,15 @@
 void main() {
-  MediumNews mediumNews = MediumNews()
-    ..addObserver(EmailObserver())
-    ..addObserver(NotificationObserver());
+  MediumNews mediumNews = MediumNews();
+  EmailObserver emailObserver = EmailObserver();
+  NotificationObserver notificationObserver = NotificationObserver();
+
+  mediumNews
+    ..addObserver(emailObserver)
+    ..addObserver(notificationObserver);
 
   mediumNews.addNews("[01.12.21] The Bitcoin Dream Is Dead");
   mediumNews.addNews("[02.12.21] MediaQuery in Flutter");
+  //mediumNews.deleteObserver(notificationObserver);
   mediumNews.addNews("[03.12.21] Native Splash Screen in Flutter Using Lottie");
   mediumNews.addNews("[04.12.21] Announcing Flutter Windows Alpha");
   mediumNews.addNews("[05.12.21] Edit a PDF in Flutter");
@@ -31,7 +36,9 @@ class MediumNews implements NotifyAPI {
 
   @override
   void addObserver(Observer observer) {
-    _observersList.add(observer);
+    if(!_observersList.contains(observer)){
+      _observersList.add(observer);
+    }
   }
 
   @override

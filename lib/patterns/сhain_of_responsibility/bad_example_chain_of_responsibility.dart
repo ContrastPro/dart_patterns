@@ -1,4 +1,5 @@
 void badExampleChainOfResponsibility() {
+
   final Logger firstLogger = FirstLogger();
   final Logger secondLogger = SecondLogger();
   final Logger thirdLogger = ThirdLogger();
@@ -6,14 +7,14 @@ void badExampleChainOfResponsibility() {
   firstLogger.setNextLoggerInChain(secondLogger);
   secondLogger.setNextLoggerInChain(thirdLogger);
 
-  firstLogger.print(Translate.EnglishToChinese);
+  firstLogger.print(Translate.ChineseToEnglish);
 }
 
 enum Translate {
-  EnglishToGerman,
-  EnglishToChinese,
-  EnglishToRussian,
-  EnglishToJapanese,
+  GermanToEnglish,
+  ChineseToEnglish,
+  RussianToEnglish,
+  JapaneseToEnglish,
 }
 
 abstract class Logger {
@@ -41,7 +42,7 @@ abstract class Logger {
 class FirstLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToGerman) {
+    if (translate == Translate.GermanToEnglish) {
       print("[FIRST LOGGER] Translate English to German");
     }
   }
@@ -50,7 +51,7 @@ class FirstLogger extends Logger {
 class SecondLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToChinese) {
+    if (translate == Translate.ChineseToEnglish) {
       print("[SECOND LOGGER] Translate English to Chinese");
     }
   }
@@ -59,7 +60,7 @@ class SecondLogger extends Logger {
 class ThirdLogger extends Logger {
   @override
   void handleRequest(Translate translate) {
-    if (translate == Translate.EnglishToRussian) {
+    if (translate == Translate.RussianToEnglish) {
       print("[THIRD LOGGER] Translate English to Russian");
     }
   }
