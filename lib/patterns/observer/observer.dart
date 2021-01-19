@@ -59,6 +59,8 @@ abstract class Observer {
   void handleEvent(List<String> newsList);
 }
 
+// У EmailObserver может быть свой список мейл адресов которым он
+// будет производить рассылку в методе handleEvent()
 class EmailObserver implements Observer {
   @override
   void handleEvent(List<String> newsList) {

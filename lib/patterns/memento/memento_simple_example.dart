@@ -17,6 +17,7 @@ void mementoSimpleExample() {
   print("\n*** Project files was modified ***\n");
   print(dartPatterns);
 
+  // Нам не нравяться изменения, поэтому откатываем проект к последнему комиту
   print("\n*** Update project to last commit ***\n");
   dartPatterns.updateProject(github.getProject());
   print(dartPatterns);

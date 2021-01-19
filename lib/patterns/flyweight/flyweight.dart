@@ -1,13 +1,18 @@
 import 'dart:math';
 
 void main() {
-  bool useFlyweight = false;
 
+  // Используем обычную фабрику или паттерн Flyweight
+  bool useFlyweight = true;
+
+  // Коллекция рандомных фигур
   final List<IPositionedShape> listShapes = List<IPositionedShape>();
 
+  // Фабрики фигур
   final ShapeFactory shapeFactory = ShapeFactory();
   final ShapeFlyweightFactory flyweightFactory = ShapeFlyweightFactory();
 
+  // Создаём 10 рандомных фигур
   for (int i = 0; i < 10; i++) {
     listShapes.add(
       useFlyweight == true
@@ -16,11 +21,13 @@ void main() {
     );
   }
 
+  // Рендерим каждую фтгуру на экране в рандомном месте
   listShapes.forEach((element) {
     element.render(Random().nextInt(400), Random().nextInt(400));
   });
 }
 
+// Выбераем случайную фигуру
 ShapeType getRandomShape() {
   List<ShapeType> shapeType = ShapeType.values;
   return shapeType[Random().nextInt(shapeType.length)];

@@ -4,6 +4,6 @@ import 'real_life_example_iterator.dart';
 
 void main() {
   //dartIterator();
-  //customIterator();
+  customIterator();
   //realLifeExampleIterator();
 }

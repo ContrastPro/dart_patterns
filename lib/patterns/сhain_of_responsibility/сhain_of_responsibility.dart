@@ -1,16 +1,16 @@
 import 'bad_example_chain_of_responsibility.dart';
 
 void main() {
-  //badExampleChainOfResponsibility();
+  badExampleChainOfResponsibility();
 
-  final Logger firstLogger = FirstLogger();
+  /*final Logger firstLogger = FirstLogger();
   final Logger secondLogger = SecondLogger();
   final Logger thirdLogger = ThirdLogger();
 
   firstLogger.setNextLoggerInChain(secondLogger);
   secondLogger.setNextLoggerInChain(thirdLogger);
 
-  firstLogger.handleRequest(Translate.ChineseToEnglish);
+  firstLogger.handleRequest(Translate.ChineseToEnglish);*/
 }
 
 enum Translate {
