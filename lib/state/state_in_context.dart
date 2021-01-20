@@ -1,14 +1,17 @@
 void stateInContext() {
   final Order iphone7 = Order();
+
   print("\n*** Заказчик произвёл оплату ***");
-  iphone7.changeOrderState();
+  iphone7.changeOrderState(OrderStatus.SHIPMENT);
   print("\n*** Передано международному перевозчику ***");
-  iphone7.changeOrderState();
+  iphone7.changeOrderState(OrderStatus.LEFT_COUNTRY);
   print("\n*** Посылка находиться на сортировочном пункте ***");
-  iphone7.changeOrderState();
+  iphone7.changeOrderState(OrderStatus.ARRIVED_COUNTRY);
   print("\n*** Курьер Новой доставил посылку ***");
-  iphone7.changeOrderState();
+  iphone7.changeOrderState(OrderStatus.DELIVERED);
 }
+
+enum OrderStatus { SHIPMENT, LEFT_COUNTRY, ARRIVED_COUNTRY, DELIVERED }
 
 // State
 abstract class OrderState {
@@ -47,14 +50,24 @@ class Delivered implements OrderState {
 class Order {
   OrderState _orderState = ConfirmationOfDispatch();
 
-  void changeOrderState() {
-    _showInfo();
-    if (_orderState is ConfirmationOfDispatch) {
-      _setOrderState(LeftCountry());
-    } else if (_orderState is LeftCountry) {
-      _setOrderState(ArrivedInCountry());
-    } else if (_orderState is ArrivedInCountry) {
-      _setOrderState(Delivered());
+  void changeOrderState(OrderStatus orderStatus) {
+    switch (orderStatus) {
+      case OrderStatus.SHIPMENT:
+        _showInfo();
+        _setOrderState(LeftCountry());
+        break;
+      case OrderStatus.LEFT_COUNTRY:
+        _showInfo();
+        _setOrderState(ArrivedInCountry());
+        break;
+      case OrderStatus.ARRIVED_COUNTRY:
+        _showInfo();
+        _setOrderState(Delivered());
+        break;
+      case OrderStatus.DELIVERED:
+        // Можно вывести подробную историю доставки
+        _showInfo();
+        break;
     }
   }
 
