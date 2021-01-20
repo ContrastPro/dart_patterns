@@ -1,56 +1,85 @@
-void stateInStates(){
-  Parcel parcel = Parcel();
-  ConfirmationOfDispatch confirmationOfDispatch = ConfirmationOfDispatch();
+void stateInStates() {
+  final Order iphone7 = Order();
 
-  parcel.setParcelState(confirmationOfDispatch);
+  print("\n*** Заказчик произвёл оплату ***");
+  iphone7.changeOrderState();
+  print("\n*** Передано международному перевозчику ***");
+  iphone7.changeOrderState();
+  print("\n*** Посылка находиться на сортировочном пункте ***");
+  iphone7.changeOrderState();
+  print("\n*** Курьер Новой доставил посылку ***");
+  iphone7.changeOrderState();
 }
 
 // State
-abstract class ParcelState {
-  void printParcelStatus(Parcel parcel);
+abstract class OrderState {
+  void nextOrderState(Order order);
+
+  void printOrderStatus();
 }
 
-class ConfirmationOfDispatch implements ParcelState {
+class ConfirmationOfDispatch implements OrderState {
   @override
-  void printParcelStatus(Parcel parcel) {
+  void nextOrderState(Order order) {
+    order.setOrderState(LeftCountry());
+  }
+
+  @override
+  void printOrderStatus() {
     print("[01.01.21] Оплата произведена, ожидание передачи перевозчику");
-    parcel.setParcelState(LeftCountry());
   }
 }
 
-class LeftCountry implements ParcelState {
+class LeftCountry implements OrderState {
   @override
-  void printParcelStatus(Parcel parcel) {
-    print("[03.01.21] Посылка покинула страну отправителя");
-    parcel.setParcelState(ArrivedInCountry());
+  void nextOrderState(Order order) {
+    order.setOrderState(ArrivedInCountry());
+  }
+
+  @override
+  void printOrderStatus() {
+    print("[03.01.21] Заказ покинул страну отправителя");
   }
 }
 
-class ArrivedInCountry implements ParcelState {
+class ArrivedInCountry implements OrderState {
   @override
-  void printParcelStatus(Parcel parcel) {
-    print("[10.01.21] Посылка прибыла в страну назначения");
-    parcel.setParcelState(Delivered());
+  void nextOrderState(Order order) {
+    order.setOrderState(Delivered());
+  }
+
+  @override
+  void printOrderStatus() {
+    print("[10.01.21] Заказ прибыл в страну назначения");
   }
 }
 
-class Delivered implements ParcelState {
+class Delivered implements OrderState {
   @override
-  void printParcelStatus(Parcel parcel) {
-    print("[22.01.21] Посылка доставленна заказчику");
+  void nextOrderState(Order order) {
+    order.setOrderState(Delivered());
+  }
+
+  @override
+  void printOrderStatus() {
+    print("[22.01.21] Заказ выполнен");
   }
 }
 
 // Context
-class Parcel {
-  ParcelState _parcelState = ConfirmationOfDispatch();
+class Order {
+  OrderState _orderState = ConfirmationOfDispatch();
 
-  void setParcelState(ParcelState parcelState) {
+  void changeOrderState() {
     _showInfo();
-    _parcelState = parcelState;
+    _orderState.nextOrderState(this);
+  }
+
+  void setOrderState(OrderState orderState) {
+    _orderState = orderState;
   }
 
   void _showInfo() {
-    _parcelState.printParcelStatus(this);
+    _orderState.printOrderStatus();
   }
 }

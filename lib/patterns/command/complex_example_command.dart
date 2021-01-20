@@ -7,14 +7,14 @@ void complexExampleCommand() {
   final HeatingStartCommand heatingStartCommand = HeatingStartCommand(heating);
   final HeatingStopCommand heatingStopCommand = HeatingStopCommand(heating);
 
-  // Evening
+  // Создаём макрос для вечера
   print("*** Evening ***");
   final Program eveningProgram = Program()
     ..addCommand(heatingStartCommand)
     ..addCommand(switchOnCommand)
     ..startProgram();
 
-  // Morning
+  // Создаём макрос для утра
   print("\n*** Morning ***");
   final Program morningProgram = eveningProgram;
   morningProgram

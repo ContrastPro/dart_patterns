@@ -1,68 +1,68 @@
 void stateInContext() {
-  final Parcel iphone7 = Parcel();
+  final Order iphone7 = Order();
   print("\n*** Заказчик произвёл оплату ***");
-  iphone7.changeParcelState();
+  iphone7.changeOrderState();
   print("\n*** Передано международному перевозчику ***");
-  iphone7.changeParcelState();
+  iphone7.changeOrderState();
   print("\n*** Посылка находиться на сортировочном пункте ***");
-  iphone7.changeParcelState();
+  iphone7.changeOrderState();
   print("\n*** Курьер Новой доставил посылку ***");
-  iphone7.changeParcelState();
+  iphone7.changeOrderState();
 }
 
 // State
-abstract class ParcelState {
-  void printParcelStatus();
+abstract class OrderState {
+  void printOrderStatus();
 }
 
-class ConfirmationOfDispatch implements ParcelState {
+class ConfirmationOfDispatch implements OrderState {
   @override
-  void printParcelStatus() {
+  void printOrderStatus() {
     print("[01.01.21] Оплата произведена, ожидание передачи перевозчику");
   }
 }
 
-class LeftCountry implements ParcelState {
+class LeftCountry implements OrderState {
   @override
-  void printParcelStatus() {
-    print("[03.01.21] Посылка покинула страну отправителя");
+  void printOrderStatus() {
+    print("[03.01.21] Заказ покинул страну отправителя");
   }
 }
 
-class ArrivedInCountry implements ParcelState {
+class ArrivedInCountry implements OrderState {
   @override
-  void printParcelStatus() {
-    print("[10.01.21] Посылка прибыла в страну назначения");
+  void printOrderStatus() {
+    print("[10.01.21] Заказ прибыл в страну назначения");
   }
 }
 
-class Delivered implements ParcelState {
+class Delivered implements OrderState {
   @override
-  void printParcelStatus() {
-    print("[22.01.21] Посылка доставленна заказчику");
+  void printOrderStatus() {
+    print("[22.01.21] Заказ выполнен");
   }
 }
 
 // Context
-class Parcel {
-  ParcelState _parcelState = ConfirmationOfDispatch();
+class Order {
+  OrderState _orderState = ConfirmationOfDispatch();
 
-  void changeParcelState() {
+  void changeOrderState() {
     _showInfo();
-    if (_parcelState is ConfirmationOfDispatch) {
-      _setParcelState(LeftCountry());
-    } else if (_parcelState is LeftCountry) {
-      _setParcelState(ArrivedInCountry());
-    } else if (_parcelState is ArrivedInCountry) {
-      _setParcelState(Delivered());
+    if (_orderState is ConfirmationOfDispatch) {
+      _setOrderState(LeftCountry());
+    } else if (_orderState is LeftCountry) {
+      _setOrderState(ArrivedInCountry());
+    } else if (_orderState is ArrivedInCountry) {
+      _setOrderState(Delivered());
     }
   }
 
-  void _setParcelState(ParcelState parcelState) {
-    _parcelState = parcelState;
+  void _setOrderState(OrderState parcelState) {
+    _orderState = parcelState;
   }
 
   void _showInfo() {
-    _parcelState.printParcelStatus();
+    _orderState.printOrderStatus();
   }
 }
