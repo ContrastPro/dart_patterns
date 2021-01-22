@@ -9,28 +9,28 @@ void main() {
   databaseReader.readData();
 }
 
-class DataReadingAlgorithm {
-  void openResource() {}
+abstract class DataReadingAlgorithm {
+  void openResource();
 
-  static void extractData() {
+  void _extractData() {
     print("Extracting data...");
   }
 
-  static void parseData() {
+  void _parseData() {
     print("Parsing data...");
   }
 
-  static void processData() {
+  void _processData() {
     print("Processing data...");
   }
 
-  void closeResource() {}
+  void closeResource();
 
   void readData() {
     openResource();
-    extractData();
-    parseData();
-    processData();
+    _extractData();
+    _parseData();
+    _processData();
     closeResource();
   }
 }
