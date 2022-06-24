@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/dart_patterns.iml" filepath="$PROJECT_DIR$/.idea/dart_patterns.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pDart/DART/dart_patterns/.idea/dart_patterns.iml" filepath="$PROJECT_DIR$/../pDart/DART/dart_patterns/.idea/dart_patterns.iml" />
     </modules>
   </component>
 </project>

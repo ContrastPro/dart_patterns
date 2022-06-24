@@ -1,6 +1,0 @@
-<component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="state.dart" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application" nameIsGenerated="true">
-    <option name="filePath" value="$PROJECT_DIR$/lib/patterns/state/state.dart" />
-    <method v="2" />
-  </configuration>
-</component>
